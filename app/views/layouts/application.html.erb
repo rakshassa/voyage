@@ -10,6 +10,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="p-3 mb-2 bg-light text-dark">
+      <% if current_user %>
+        <center><div class="text-center" style="padding: 10px;">
+          Signed in as <strong><%= current_user.name %></strong>!
+          <%= link_to "Sign out", signout_path, id: "sign_out" %>
+        </div></center>
+      <% else %>
+        <center><div class="text-center" style="padding: 10px;">
+          <%= link_to image_tag("google-login.png", border: 0), "/auth/google_oauth2", id: "google_sign_in" %>
+          <%= link_to image_tag("facebook-login.png", border: 0), "/auth/facebook", id: "facebook_sign_in" %>
+        </div></center>
+      <% end %>
+    </div>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

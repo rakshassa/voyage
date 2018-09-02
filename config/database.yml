@@ -32,7 +32,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: voyage
+  #username: KeepaClient
 
   # The password associated with the postgres role (username).
   #password:
@@ -60,7 +60,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/voyage_test
+  database: db\voyage_test
   username: voyage_admin4
   # password: <%= ENV['VOYAGE_DATABASE_PASSWORD'] %>
   password: voyage_secret
@@ -86,7 +86,7 @@ test:
 #
 production:
   <<: *default
-  database: db/voyage_production
+  database: db\voyage_production
   username: voyage_admin4
   # password: <%= ENV['VOYAGE_DATABASE_PASSWORD'] %>
   password: voyage_secret

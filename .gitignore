@@ -25,3 +25,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# TODO: Ignore application id and application secret for our server
+# /config/local_env.yml

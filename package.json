@@ -1,5 +1,7 @@
 {
   "name": "voyage",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "coffeescript": "^2.3.1"
+  }
 }
