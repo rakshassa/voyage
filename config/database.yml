@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: db/voyage_development
+  database: voyage_development
   username: voyage_admin4
   # password: <%= ENV['VOYAGE_DATABASE_PASSWORD'] %>
   password: voyage_secret
@@ -60,7 +60,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db\voyage_test
+  database: voyage_test
   username: voyage_admin4
   # password: <%= ENV['VOYAGE_DATABASE_PASSWORD'] %>
   password: voyage_secret
@@ -86,7 +86,7 @@ test:
 #
 production:
   <<: *default
-  database: db\voyage_production
+  database: voyage_production
   username: voyage_admin4
   # password: <%= ENV['VOYAGE_DATABASE_PASSWORD'] %>
   password: voyage_secret

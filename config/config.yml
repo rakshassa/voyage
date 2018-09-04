@@ -1,0 +1,16 @@
+defaults: &defaults
+
+  max_teamsize: 2
+
+
+# customize below for specific releases
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  max_teamsize: 4

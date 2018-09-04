@@ -1,0 +1,23 @@
+<table class="table table-hover table-striped table-nonfluid">
+    <thead class="color-header">
+      <tr>
+        <th scope="col">Name&nbsp&nbsp&nbsp&nbsp</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+  <tbody>
+    <% @team.users.each do |user| %>
+      <tr>
+        <th scope="row"><%= user.display_name %>&nbsp&nbsp&nbsp&nbsp</th>
+        <td itemscope>
+        <% if @team.captain.id == user.id || @team.captain.id != current_user.id %>
+          <%= ' ' %>
+        <% else %>
+          <%= link_to 'Kick', kick_team_path(@team, user_id: user.id), method: :post, :title => 'Kick ' + user.name, data: { confirm: 'Are you sure you want to kick ' + user.display_name + '?' } %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

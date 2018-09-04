@@ -1,0 +1,8 @@
+.centered-content {
+  text-align: center;
+}
+
+body {
+  background-image: url('/assets/map-background.png');
+  background-size: cover;
+}

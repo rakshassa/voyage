@@ -7,4 +7,16 @@ Rails.application.routes.draw do
   resource :home, only: [:show]
 
   root to: "home#show"
+
+  resources :teams, :only => %i[index new create edit update destroy] do
+    collection do
+      get :select_join
+      get :export
+    end
+    member do
+      post :join
+      get :dashboard
+      post :kick
+    end
+  end
 end

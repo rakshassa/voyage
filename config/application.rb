@@ -1,6 +1,8 @@
 require_relative 'boot'
 
 require "rails"
+require 'csv'
+
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -21,6 +23,8 @@ module Voyage
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+
+    config.autoload_paths << Rails.root.join('app', 'lib')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

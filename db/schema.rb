@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_01_193913) do
+ActiveRecord::Schema.define(version: 2018_09_04_030629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,14 +24,25 @@ ActiveRecord::Schema.define(version: 2018_09_01_193913) do
     t.index ["updated_at"], name: "index_legacy_sessions_on_updated_at"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.integer "team_captain_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_teams_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider"
     t.string "uid"
     t.string "name"
     t.string "oauth_token"
     t.datetime "oauth_expires_at"
+    t.string "handle", limit: 15
+    t.integer "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["handle"], name: "index_users_on_handle", unique: true
   end
 
 end

@@ -1,0 +1,38 @@
+
+<div class="apple_pagination">
+    <div class="page_info">
+      <%= page_entries_info @teams %>
+    </div>
+    <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer  %>
+</div>
+
+<table class="table table-hover table-striped table-nonfluid">
+    <thead class="color-header">
+      <tr>
+        <th scope="col"><%= " Team Name " %></th>
+        <th scope="col"><%= " Captain " %></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <th scope="row"><%= team.name %>&nbsp&nbsp&nbsp&nbsp</th>
+        <td><%= team.captain_name %>&nbsp&nbsp&nbsp&nbsp</td>
+        <td itemscope><%= link_to 'Join', join_team_path(team), method: :post, :title => 'Join ' + team.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="apple_pagination">
+    <div class="page_info">
+      <%= page_entries_info @teams %>
+    </div>
+    <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer %>
+</div>
+
+<br>
+
+<%= link_to 'Create a new team', new_team_path, :class => 'btn btn-large btn-primary' %>

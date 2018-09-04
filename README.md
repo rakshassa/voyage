@@ -1,24 +1,44 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Class diagram is here:
+https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
+ehj_gm_f1
 
-Things you may want to cover:
 
-* Ruby version
+1. Include twitter oauth
+2. Create database migrations/models
+3. Create GUI for teams
+  - <done> create a new team
+  - join an existing team - request/accept/cancel-request/deny
+  - <done> kick a team member
+  - quit a team
+  - make my team private (passcode to join)
+  - I have a passcode (join private team)
 
-* System dependencies
+  - view team quests
+    + quest (started/not-started) -> steps with status -> hints (available/used)
+    + points (earned/maximum_available/spent_on_hints)
 
-* Configuration
+4. Create GUI for quest creation
+  - Quest Name
+  - Number of steps
+    + step name and number
+    + step point value
+    + step variants
+      -- text, answer
+    + step hints
+      -- hint number
+      -- hint cost
+      -- text
 
-* Database creation
+5. Create scoreboard
+  - team, score, spent_on_hints
 
-* Database initialization
+6. Initial page load
+  - if has session
+    - if has team: load team dashboard
+    - else: load team selection
+  - login splash screen
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+7. User preferences
+  - set handle (shown on scoreboards and team roster)

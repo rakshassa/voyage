@@ -1,0 +1,41 @@
+<h1>Teams</h1>
+
+<%= link_to "Export", export_teams_path(format: "csv"), class: "btn btn-large btn-warning" %>
+
+<div class="apple_pagination">
+    <div class="page_info">
+      <%= page_entries_info @teams %>
+    </div>
+    <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer  %>
+</div>
+
+<table class="table table-hover table-striped table-nonfluid">
+    <thead class="color-header">
+      <tr>
+        <th scope="col">Name&nbsp&nbsp&nbsp&nbsp</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <th scope="row"><%= team.name %>&nbsp&nbsp&nbsp&nbsp</th>
+        <td itemscope><%= link_to 'Delete', team, method: :delete, :title => 'Delete ' + team.name, data: { confirm: 'Delete this team?' } %></td>
+        <td itemscope><%= link_to 'Edit', edit_team_path(team) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="apple_pagination">
+    <div class="page_info">
+      <%= page_entries_info @teams %>
+    </div>
+    <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer %>
+</div>
+
+<br>
+
+<%= link_to 'New Team', new_team_path, :class => 'btn btn-large btn-primary' %>
+
