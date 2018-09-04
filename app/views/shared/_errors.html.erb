@@ -1,8 +1,7 @@
+<div class="row centered-content">
   <% if record.errors.any? %>
     <br><br>
-    <div id="error_explanation" class="row col-md-12" tabindex="0">
-      <h2><%= pluralize(record.errors.count, "error") %> prohibited this field from being saved:</h2>
-
+    <div class="row col-md-10" >
       <ul>
       <% record.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,3 +9,4 @@
       </ul>
     </div>
   <% end %>
+</div>

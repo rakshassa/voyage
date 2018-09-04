@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[edit update destroy dashboard request_join
                                     cancel_join_request accept_join_request deny_join_request
-                                    kick]
+                                    kick quit promote]
   before_action :ensure_auth
 
   # GET /teams
@@ -23,6 +23,28 @@ class TeamsController < ApplicationController
 
     @teams = @teams.sort { |a, b| a.name.downcase <=> b.name.downcase }
     @teams = @teams.paginate(page: params[:page], :per_page => 20)
+  end
+
+  def promote
+    return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
+
+    user_id = params[:user_id]
+    records = User.where(id: user_id)
+    return redirect_to root_path unless records.present?
+
+    @team.team_captain_id = user_id
+    @team.save
+
+    redirect_to root_path
+  end
+
+  def quit
+    return redirect_to root_path if current_user.nil? || current_user.id == @team.team_captain_id
+
+    current_user.team_id = nil
+    current_user.save
+
+    redirect_to root_path
   end
 
   def kick
@@ -127,10 +149,12 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1
   def destroy
+    @team.joinrequests.destroy_all
+    @team.users.update_all(team_id: nil)
     @team.destroy
 
     respond_to do |format|
-      format.html { redirect_to teams_url, notice: 'Tean was successfully deleted.' }
+      format.html { redirect_to root_path }
     end
   end
 

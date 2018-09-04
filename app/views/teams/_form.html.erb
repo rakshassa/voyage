@@ -2,7 +2,7 @@
 
   <div class="row">
       <div class="col-md-2"><%= f.label :name, "Name", class: "font-weight-bold white-darker-hover" %></div>
-      <div class="col-md-4"><%= f.text_field :name, placeholder: " Type your Team Name here " %></div>
+      <div class="col-md-6"><%= f.text_field :name, placeholder: " Type your Team Name here " %></div>
   </div>
 
   <%= f.hidden_field :team_captain_id, :value => current_user.id %>

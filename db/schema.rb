@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_144624) do
+ActiveRecord::Schema.define(version: 2018_09_04_171347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,15 @@ ActiveRecord::Schema.define(version: 2018_09_04_144624) do
     t.index ["updated_at"], name: "index_legacy_sessions_on_updated_at"
   end
 
+  create_table "quests", force: :cascade do |t|
+    t.string "name", limit: 25, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_quests_on_name", unique: true
+  end
+
   create_table "teams", force: :cascade do |t|
-    t.string "name", limit: 50, null: false
+    t.string "name", limit: 25, null: false
     t.integer "team_captain_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

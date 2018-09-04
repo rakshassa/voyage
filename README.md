@@ -9,11 +9,12 @@ ehj_gm_f1
 2. Create database migrations/models
 3. Create GUI for teams
   - <done> create a new team
-  - join an existing team - request/accept/cancel-request/deny
-  - <done> kick a team member
-  - quit a team
+  - <done> join an existing team - request/accept/cancel-request/deny
+  - <done> kick a team member (captain)
+  - <done> quit a team (member) / delete a team (captain)
   - make my team private (passcode to join)
   - I have a passcode (join private team)
+  - <done> change team captain
 
   - view team quests
     + quest (started/not-started) -> steps with status -> hints (available/used)
