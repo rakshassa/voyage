@@ -6,7 +6,7 @@ class Team < ApplicationRecord
   scope :full, -> { joins(:users).group("teams.id").having("COUNT(users.id) >= ?", APP_CONFIG['max_teamsize']) }
 
   has_many :users, :class_name => 'User', dependent: :nullify, inverse_of: :team
-  # belongs_to :team_captain, :foreign_key => "team_captain_id", inverse_of: :captain_of, optional: true
+  has_many :joinrequests, :class_name => 'Joinrequest', dependent: :destroy, inverse_of: :team
   belongs_to :captain, class_name: 'User', foreign_key: :team_captain_id
 
   def captain_name

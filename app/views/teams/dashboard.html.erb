@@ -4,5 +4,8 @@
   <%= render 'roster' %>
 </div>
 
-
-
+<% if @join_requests.present? %>
+<div>
+  <%= render 'join_requests' %>
+</div>
+<% end %>

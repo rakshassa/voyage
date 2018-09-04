@@ -20,7 +20,11 @@
       <tr>
         <th scope="row"><%= team.name %>&nbsp&nbsp&nbsp&nbsp</th>
         <td><%= team.captain_name %>&nbsp&nbsp&nbsp&nbsp</td>
-        <td itemscope><%= link_to 'Join', join_team_path(team), method: :post, :title => 'Join ' + team.name %></td>
+        <% if Joinrequest.where(user_id: current_user.id, team_id: team.id).present? %>
+          <td itemscope><%= link_to 'Cancel', cancel_join_request_team_path(team), method: :post, :title => 'Cancel Join ' + team.name %></td>
+        <% else %>
+          <td itemscope><%= link_to 'Join', request_join_team_path(team), method: :post, :title => 'Join ' + team.name %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

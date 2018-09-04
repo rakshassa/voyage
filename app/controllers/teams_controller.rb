@@ -1,5 +1,7 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[edit update destroy dashboard join kick]
+  before_action :set_team, only: %i[edit update destroy dashboard request_join
+                                    cancel_join_request accept_join_request deny_join_request
+                                    kick]
   before_action :ensure_auth
 
   # GET /teams
@@ -13,6 +15,8 @@ class TeamsController < ApplicationController
   end
 
   def select_join
+    return redirect_to dashboard_team_path(current_user.team) if current_user.team.present?
+
     @page_title = 'Select a team to join'
     @teams = []
     @teams = Team.unfull
@@ -33,19 +37,55 @@ class TeamsController < ApplicationController
     redirect_to root_path
   end
 
-  def join
-    respond_to do |format|
-      if @team.present?
-        current_user.team_id = @team.id
-        current_user.save
-        format.html { redirect_to dashboard_team_path(@team), notice: 'Team was successfully joined.' }
-      else
-        format.html { render :select_join, notice: 'Please choose a team.' }
-      end
+  def request_join
+    if @team.present?
+      request = Joinrequest.create(user_id: current_user.id, team_id: @team.id)
+      request.save
     end
+    redirect_to select_join_teams_path
+  end
+
+  def cancel_join_request
+    if @team.present?
+      request = Joinrequest.where(user_id: current_user.id, team_id: @team.id)
+      request.destroy
+    end
+    redirect_to select_join_teams_path
+  end
+
+  def accept_join_request
+    return redirect_to root_path if @team.captain.id != current_user.id
+
+    user_id = params['user_id']
+    user_records = User.where(id: user_id)
+    user = user_records.present? ? user_records.first : nil
+
+    if @team.present? && user.present?
+      requests = Joinrequest.where(user_id: user.id)
+      requests.destroy_all
+
+      user.team_id = @team.id
+      user.save
+    end
+    redirect_to dashboard_team_path(@team)
+  end
+
+  def deny_join_request
+    return redirect_to root_path if @team.captain.id != current_user.id
+
+    user_id = params['user_id']
+    user_records = User.where(id: user_id)
+    user = user_records.present? ? user_records.first : nil
+
+    if @team.present? && user.present?
+      requests = Joinrequest.where(user_id: user.id, team_id: @team.id)
+      requests.destroy_all
+    end
+    redirect_to dashboard_team_path(@team)
   end
 
   def dashboard
+    @join_requests = Joinrequest.for_team(@team.id)
     return redirect_to root_path if current_user.team_id != @team.id
   end
 

@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_030629) do
+ActiveRecord::Schema.define(version: 2018_09_04_144624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "joinrequests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "team_id"], name: "index_joinrequests_on_user_id_and_team_id", unique: true
+  end
 
   create_table "legacy_sessions", force: :cascade do |t|
     t.string "session_id", null: false

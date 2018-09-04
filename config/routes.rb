@@ -14,9 +14,12 @@ Rails.application.routes.draw do
       get :export
     end
     member do
-      post :join
       get :dashboard
       post :kick
+      post :request_join
+      post :cancel_join_request
+      post :accept_join_request
+      post :deny_join_request
     end
   end
 end
