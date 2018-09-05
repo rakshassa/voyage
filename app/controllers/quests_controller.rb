@@ -1,5 +1,20 @@
 class QuestsController < ApplicationController
-  before_action :set_quest, only: [:edit, :update, :destroy]
+  before_action :set_quest, only: [:edit, :update, :destroy, :publish, :unpublish]
+
+  def publish
+    # TODO: make available to teams - assign those that meet prereqs
+    @quest.is_published = true
+    @quest.save
+    redirect_to quests_path
+  end
+
+  def unpublish
+    # TODO: unassign from all teams
+    # TODO: checkbox to "retain progress" or "delete progress"
+    @quest.is_published = false
+    @quest.save
+    redirect_to quests_path
+  end
 
   # GET /quests
   def index
@@ -18,6 +33,7 @@ class QuestsController < ApplicationController
   # POST /quests
   def create
     @quest = Quest.new(quest_params)
+    @quest.is_published = false
 
     respond_to do |format|
       if @quest.save

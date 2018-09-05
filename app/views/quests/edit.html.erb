@@ -1,4 +1,14 @@
 <h1>Editing Quest</h1>
 
 <%= render 'form', quest: @quest %>
+<br><br>
+<%= render 'steps/index' %>
 
+<% if @quest.steps.present? %>
+  <% if @quest.is_published %>
+    <%= link_to 'Unpublish', unpublish_quest_path(@quest), method: :post, :class => 'btn btn-large btn-primary' %></td>
+  <% else %>
+    <%= link_to 'Publish', publish_quest_path(@quest), method: :post, :class => 'btn btn-large btn-primary' %></td>
+  <% end %>
+<% end %>
+<%= link_to 'Back', quests_path, :class => 'btn btn-large btn-primary' %>

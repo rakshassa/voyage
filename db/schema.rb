@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_171347) do
+ActiveRecord::Schema.define(version: 2018_09_04_190209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,30 @@ ActiveRecord::Schema.define(version: 2018_09_04_171347) do
 
   create_table "quests", force: :cascade do |t|
     t.string "name", limit: 25, null: false
+    t.boolean "is_published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_quests_on_name", unique: true
+  end
+
+  create_table "steps", force: :cascade do |t|
+    t.integer "step_number", null: false
+    t.integer "points", null: false
+    t.string "name", limit: 25, null: false
+    t.integer "quest_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id", "step_number"], name: "index_steps_on_quest_id_and_step_number", unique: true
+  end
+
+  create_table "teamquests", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "quest_id", null: false
+    t.integer "quest_status", null: false
+    t.string "answer_seed", limit: 25, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id", "team_id"], name: "index_teamquests_on_quest_id_and_team_id", unique: true
   end
 
   create_table "teams", force: :cascade do |t|

@@ -1,6 +1,6 @@
 defaults: &defaults
 
-  max_teamsize: 2
+  max_teamsize: 4
 
 
 # customize below for specific releases

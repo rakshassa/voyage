@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :steps
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
@@ -26,5 +27,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :quests, :only => %i[index new create edit update destroy]
+  resources :quests, :only => %i[index new create edit update destroy] do
+    member do
+      post :publish
+      post :unpublish
+    end
+  end
 end

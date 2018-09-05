@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  validates :name, presence: false, uniqueness: true
+  validates :handle, presence: false, uniqueness: true, length: {minimum: 5, maximum: 15}, allow_nil: true
 
   belongs_to :team, :foreign_key => "team_id", inverse_of: :users, optional: true
   has_many :joinrequests, :class_name => 'Joinrequest', dependent: :destroy, inverse_of: :team

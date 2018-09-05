@@ -1,5 +1,5 @@
 class Team < ApplicationRecord
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: {minimum: 5, maximum: 25}
   validates :team_captain_id, presence: true, uniqueness: true
 
   scope :unfull, -> { joins(:users).group("teams.id").having("COUNT(users.id) < ?", APP_CONFIG['max_teamsize']) }

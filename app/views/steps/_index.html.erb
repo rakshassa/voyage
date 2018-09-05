@@ -1,0 +1,30 @@
+<% if @quest.steps.present? %>
+<h2>Quest Steps</h2>
+<table class="table table-hover table-striped table-nonfluid">
+    <thead class="color-header">
+      <tr>
+        <th scope="col"><%= ' Number ' %></th>
+        <th scope="col"><%= ' Points ' %></th>
+        <th scope="col"><%= '  Name  ' %></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+  <tbody>
+    <% @quest.steps.each do |step| %>
+      <tr>
+        <th scope="row"><%= step.step_number %></th>
+        <td><%= step.points %></td>
+        <td><%= step.name %></td>
+
+        <td itemscope><%= link_to 'Delete', step, method: :delete, :title => 'Delete ' + step.name, data: { confirm: 'Delete this step?' } %></td>
+        <td itemscope><%= link_to 'Edit', edit_step_path(step) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>
+<br>
+
+<%= link_to 'New Step', new_step_path(quest_id: @quest.id), :class => 'btn btn-large btn-primary' %>
