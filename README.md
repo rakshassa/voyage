@@ -18,12 +18,13 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
   - <defer> I have a passcode (join private team)
   - <done> change team captain
 
-  - view team quests
-    + quest (started/not-started)
-      - steps with status and score-value
+  - <done> view team quests
+    + <done> quest (started/not-started)
+      - <done> steps with status and score-value
         -- hints (available/used) with penalty-value
     + use quest pre-requisites
-    + display points for whole quest-chain (earned/maximum_available/spent_on_hints)
+    + show random variant - store which variant each team is using (database schema update)
+    + <done> display points for whole quest-chain (earned/maximum_available/spent_on_hints)
 
 4. Create GUI for quest creation
   - <done> Quest Name
@@ -54,5 +55,8 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
 8. On team creation, assign all available quests (those with no pre-reqs for step 1)
 9. On quest publishing: (after creating steps and pre-reqs)
   - assign to all teams that meet the pre-reqs for step 1
+  - unpublish should ask if we want to keep progress for all teams
 
 10. Add an admin user flag to authorize quest_creation GUI
+11. Calculate expected answer from variant.answer and teamquest.seed to get unique answer for each team
+12. Publish an API to retrieve the calculated expected answer for a specified team/quest/step

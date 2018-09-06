@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_190209) do
+ActiveRecord::Schema.define(version: 2018_09_05_173008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_09_04_190209) do
   create_table "steps", force: :cascade do |t|
     t.integer "step_number", null: false
     t.integer "points", null: false
-    t.string "name", limit: 25, null: false
+    t.string "name", limit: 50, null: false
     t.integer "quest_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2018_09_04_190209) do
     t.string "answer_seed", limit: 25, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "last_step_completed"
     t.index ["quest_id", "team_id"], name: "index_teamquests_on_quest_id_and_team_id", unique: true
   end
 

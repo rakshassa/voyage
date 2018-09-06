@@ -1,0 +1,44 @@
+<div style="background: #4285F4;">
+  <h2 class="font-weight-bold centered-content" style="color: white; padding: 10px;"><%= current_user.team.name %></h2>
+  <h4 class="font-weight-bold centered-content" style="color: green; padding: 10px;"><%= @teamquest.quest.name %></h4>
+</div>
+
+<h4 class="font-weight-bold" style="color: green; padding: 10px;"><%= @step.name %></h4>
+
+<div>
+<%= "Value: " + @step.points.to_s + " points" %>
+</div>
+<br>
+
+<div>
+  Here, we will write our quest text.  It may be useful or funny, but whatever we write... it better be asking a specific question with a specific problem to solve and a specific answer to find.
+</div>
+<br>
+<div>
+  <%= form_tag(answer_teamquest_path, method: :post, id: "search-form") do %>
+    <%= hidden_field_tag :id, @teamquest.id %>
+    <%= hidden_field_tag :step_id, @step.id %>
+    <div class="row">
+      <div class="col-md-1">
+        <%= label_tag :answer, "Answer", class: "font-weight-bold white-darker-hover" %>
+      </div>
+      <div class="col-md-3">
+        <%= text_field_tag :answer, params[:answer], placeholder: " Type your answer here " %>
+      </div>
+      <div class="col-md-2">
+        <%= submit_tag "Submit", :name => nil %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  &nbsp
+  <% if @answer_result.present? %>
+    <%= @answer_result %>
+  <% end %>
+</div>
+
+<div class="row centered-content">
+    <%= link_to 'Dashboard', dashboard_team_path(current_user.team), :title => 'Dashboard', class: "btn btn-large btn-warning col-2" %>
+</div>

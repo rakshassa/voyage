@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-
-  resources :steps
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
@@ -33,4 +31,13 @@ Rails.application.routes.draw do
       post :unpublish
     end
   end
+
+  resource :teamquest, only: [:show] do
+    member do
+      get :step
+      post :answer
+    end
+  end
+
+  resources :steps
 end

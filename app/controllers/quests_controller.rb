@@ -2,15 +2,17 @@ class QuestsController < ApplicationController
   before_action :set_quest, only: [:edit, :update, :destroy, :publish, :unpublish]
 
   def publish
-    # TODO: make available to teams - assign those that meet prereqs
+    Teamquest.publish(@quest)
+
     @quest.is_published = true
     @quest.save
     redirect_to quests_path
   end
 
   def unpublish
-    # TODO: unassign from all teams
     # TODO: checkbox to "retain progress" or "delete progress"
+    Teamquest.unpublish(@quest, false)
+
     @quest.is_published = false
     @quest.save
     redirect_to quests_path

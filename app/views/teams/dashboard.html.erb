@@ -3,24 +3,33 @@
   <h2 class="font-weight-bold centered-content" style="color: white; padding: 10px;"><%= current_user.team.name %></h2>
 </div>
 
-  <div style="float: right;">
-  <% if current_user.id == @team.captain.id %>
-    <%= link_to 'Delete this team', @team, method: :delete, :title => 'Delete the team', data: { confirm: 'Are you sure you want to delete this team?  All progress will be lost permanently.  This can not be undone!' }, class: "btn btn-large btn-warning col-2" %>
-  <% else %>
-    <%= link_to 'Leave the team', quit_team_path(@team), method: :post, :title => 'Quit the team', data: { confirm: 'Are you sure you want to quit this team?' }, class: "btn btn-large btn-warning col-2" %>
-  <% end %>
-</div>
+<div class="row">
+  <div class="col-md-4">
+    <div>
+      <%= render 'roster' %>
+    </div>
 
-
-<div>
-  <%= render 'roster' %>
-</div>
-
-<% if @join_requests.present? %>
-  <div>
-    <%= render 'join_requests' %>
+    <% if @join_requests.present? %>
+      <div>
+        <%= render 'join_requests' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+
+  <div class="col-md-4 centered-content">
+    <%= "Score: " + @team.total_score.to_s + "/" + @team.max_score.to_s %>
+  </div>
+
+  <div class="col-md-4 centered-content">
+    <div>
+      <% if current_user.id == @team.captain.id %>
+        <%= link_to 'Delete this team', @team, method: :delete, :title => 'Delete the team', data: { confirm: 'Are you sure you want to delete this team?  All progress will be lost permanently.  This can not be undone!' }, class: "btn btn-large btn-warning col-2" %>
+      <% else %>
+        <%= link_to 'Leave the team', quit_team_path(@team), method: :post, :title => 'Quit the team', data: { confirm: 'Are you sure you want to quit this team?' }, class: "btn btn-large btn-warning col-2" %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <br><br>
 <div>

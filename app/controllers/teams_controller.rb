@@ -129,6 +129,9 @@ class TeamsController < ApplicationController
       if @team.save
         current_user.team_id = @team.id
         current_user.save
+        requests = Joinrequest.where(user_id: user.id)
+        requests.destroy_all
+
         format.html { redirect_to root_path, notice: 'Team was successfully created.' }
       else
         format.html { render :new }

@@ -1,15 +1,16 @@
 
-<div class="panel-heading">
+<div class="panel-heading centered-content">
   <h4 class="font-weight-bold">Your Quests</h4>
 </div>
 
 <div class="panel-body centered-content">
   <div class="row" style="padding: 10px;">
-    <%= link_to "Journey to Africa", root_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "Outback Expedition", root_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "To the Moon!", root_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "Dig into AWS", root_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "Get that Email!", root_path, class: "btn btn-large btn-primary" %>
+    <% @team.available_quests.each do |teamquest| %>
+      <%= link_to teamquest_path(id: teamquest.id), class: "btn btn-large btn-primary" do %>
+          <div class="row"><%= teamquest.quest.name %></div>
+          <div class="row"><%= "(" + teamquest.score_earned.to_s + "/" + teamquest.quest.total_score.to_s + ")" %></div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 

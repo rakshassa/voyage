@@ -9,7 +9,7 @@ class StepsController < ApplicationController
 
   # GET /steps/new
   def new
-    redirect_to quests_path if @quest.nil?
+    return redirect_to quests_path if @quest.nil?
     @step = Step.new
   end
 

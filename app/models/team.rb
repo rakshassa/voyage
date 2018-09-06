@@ -8,6 +8,36 @@ class Team < ApplicationRecord
   has_many :users, :class_name => 'User', dependent: :nullify, inverse_of: :team
   has_many :joinrequests, :class_name => 'Joinrequest', dependent: :destroy, inverse_of: :team
   belongs_to :captain, class_name: 'User', foreign_key: :team_captain_id
+  has_many :teamquests, :class_name => 'Teamquest', dependent: :destroy, inverse_of: :team
+
+  def self.meets_prereqs(quest)
+    # TODO: only return an activerecord relationship that contains each team
+    # which actually meets all prereqs for quest-step-<lowest>
+    # TODO: make a scope??
+    Team.all
+  end
+
+  def total_score
+    result = 0
+
+    teamquests.each do |teamquest|
+      result += teamquest.score_earned
+    end
+    result
+  end
+
+  def max_score
+    result = 0
+    quests = Quest.published
+    quests.each do |quest|
+      result += quest.total_score
+    end
+    result
+  end
+
+  def available_quests
+    teamquests.available
+  end
 
   def captain_name
     return "None" if captain.nil?
