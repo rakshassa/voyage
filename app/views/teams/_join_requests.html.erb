@@ -16,8 +16,8 @@
           <td itemscope><%= ' ' %></td>
           <td itemscope><%= ' ' %></td>
         <% else %>
-          <td itemscope><%= link_to 'Deny', deny_join_request_team_path(@team, user_id: join_request.user.id), method: :post, :title => 'Deny ' + join_request.user.name, data: { confirm: 'Are you sure you want to deny the join request for ' + join_request.user.display_name + '?' } %></td>
-          <td itemscope><%= link_to 'Accept', accept_join_request_team_path(@team, user_id: join_request.user.id), method: :post, :title => 'Accept ' + join_request.user.name %></td>
+          <td itemscope><%= link_to 'Deny', deny_join_request_team_path(@team, user_id: join_request.user.id), method: :post, :title => 'Deny ' + join_request.user.display_name, data: { confirm: 'Are you sure you want to deny the join request for ' + join_request.user.display_name + '?' } %></td>
+          <td itemscope><%= link_to 'Accept', accept_join_request_team_path(@team, user_id: join_request.user.id), method: :post, :title => 'Accept ' + join_request.user.display_name %></td>
         <% end %>
 
       </tr>

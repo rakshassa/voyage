@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, :only => %i[edit update]
+
   resources :quests, :only => %i[index new create edit update destroy] do
     member do
       post :publish

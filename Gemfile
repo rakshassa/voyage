@@ -39,6 +39,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem "omniauth-google-oauth2", '~> 0.5.3'
 gem 'omniauth-facebook', '~> 5.0.0'
+gem 'omniauth-discord', '~> 0.1.8'
+gem 'omniauth-twitter', '~> 1.4.0'
 gem 'activerecord-session_store'
 gem 'mdbootstrap-rails', :path => "/code/bootstrap/mdbootstrap-rails"
 # gem 'bootstrap', '~> 4.1.3'

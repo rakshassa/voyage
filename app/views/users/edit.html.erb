@@ -1,0 +1,27 @@
+<h1>User settings</h1>
+
+<%= form_for(@user) do |f| %>
+
+  <div class="row">
+    <div class="col-md-2"><%= f.label :provider, "Auth Provider", class: "font-weight-bold white-darker-hover" %></div>
+    <div class="col-md-4"><%= f.text_field :provider, :value => @user.provider, :disabled=>true %></div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-2"><%= f.label :name, "Name", class: "font-weight-bold white-darker-hover" %></div>
+      <div class="col-md-4"><%= f.text_field :name, :value => @user.name, :disabled=>true %></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"><%= f.label :handle, "Handle", class: "font-weight-bold white-darker-hover" %></div>
+    <div class="col-md-4"><%= f.text_field :handle, placeholder: " Type your Handle here " %></div>
+  </div>
+
+  <%= render 'shared/errors', record: @user %>
+
+  <div class="actions">
+    <%= f.submit ' Save ', :class => 'btn btn-large btn-primary' %>
+    <%= link_to 'Cancel', root_path, :class => 'btn btn-large btn-primary' %>
+  </div>
+<% end %>
+

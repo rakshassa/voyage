@@ -12,14 +12,21 @@
   <body>
     <div class="p-3 mb-2 bg-light text-dark">
       <% if current_user %>
-        <center><div class="text-center" style="padding: 10px;">
-          Signed in as <strong><%= current_user.name %></strong>!
-          <%= link_to "Sign out", signout_path, id: "sign_out" %>
-        </div></center>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="text-center centered-content col-md-4" style="padding: 10px;">
+            <div class="col-md-5">Signed in as <strong><%= current_user.display_name %></strong></div>
+            <div class="col-md-3"><%= link_to "Sign out", signout_path, id: "sign_out" %></div>
+            <div class="col-md-4"><%= "         " %></div>
+            <%= link_to "Settings", edit_user_path(id: current_user.id), id: "settings" %>
+          </div>
+        </div>
       <% else %>
         <center><div class="text-center" style="padding: 10px;">
           <%= link_to image_tag("google-login.png", border: 0), "/auth/google_oauth2", id: "google_sign_in" %>
           <%= link_to image_tag("facebook-login.png", border: 0), "/auth/facebook", id: "facebook_sign_in" %>
+          <%= link_to image_tag("discord-login.png", border: 0), "/auth/discord", id: "discord_sign_in" %>
+          <%= link_to image_tag("twitter-login.png", border: 0), "/auth/twitter", id: "twitter_sign_in" %>
         </div></center>
       <% end %>
     </div>

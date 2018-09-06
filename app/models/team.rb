@@ -17,6 +17,16 @@ class Team < ApplicationRecord
     Team.all
   end
 
+  def assign_all_quests
+    quests = Quest.published
+    quests.each do |quest|
+      seed = Teamquest.generate_seed
+      status = Teamquest.quest_statuses[:available]
+      teamquest = Teamquest.create(team_id: id, quest_id: quest.id, quest_status: status, answer_seed: seed)
+      teamquest.save
+    end
+  end
+
   def total_score
     result = 0
 

@@ -16,8 +16,8 @@
           <td itemscope><%= ' ' %></td>
           <td itemscope><%= ' ' %></td>
         <% else %>
-          <td itemscope><%= link_to 'Kick', kick_team_path(@team, user_id: user.id), method: :post, :title => 'Kick ' + user.name, data: { confirm: 'Are you sure you want to kick ' + user.display_name + '?' } %></td>
-          <td itemscope><%= link_to 'Promote', promote_team_path(@team, user_id: user.id), method: :post, :title => 'Promote ' + user.name, data: { confirm: 'Are you sure you want ' + user.display_name + ' to be the team captain?' } %></td>
+          <td itemscope><%= link_to 'Kick', kick_team_path(@team, user_id: user.id), method: :post, :title => 'Kick ' + user.display_name, data: { confirm: 'Are you sure you want to kick ' + user.display_name + '?' } %></td>
+          <td itemscope><%= link_to 'Promote', promote_team_path(@team, user_id: user.id), method: :post, :title => 'Promote ' + user.display_name, data: { confirm: 'Are you sure you want ' + user.display_name + ' to be the team captain?' } %></td>
         <% end %>
       </tr>
     <% end %>

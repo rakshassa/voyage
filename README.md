@@ -4,8 +4,8 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
 1. Oauth2
   - <done> facebook
   - <done> google
-  - Twitter
-  - Discord
+  - Twitter - waiting for developer account on twitter
+  - <done> Discord
 
 2. <done> Create database migrations/models
 
@@ -43,16 +43,16 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
 5. Create scoreboard
   - team, score, spent_on_hints
 
-6. Initial page load
+6. <done> Initial page load
   - <done> if is logged in
     - <done> if has team: load team dashboard
     - <done> else: load team selection
   - <done> login splash screen
 
-7. User preferences
-  - set handle (shown on scoreboards and team roster)
+7. <done> User preferences
+  - <done> set handle (shown on scoreboards and team roster)
 
-8. On team creation, assign all available quests (those with no pre-reqs for step 1)
+8. <done> On team creation, assign all available quests (those with no pre-reqs for step 1)
 9. On quest publishing: (after creating steps and pre-reqs)
   - assign to all teams that meet the pre-reqs for step 1
   - unpublish should ask if we want to keep progress for all teams

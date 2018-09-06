@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :joinrequests, :class_name => 'Joinrequest', dependent: :destroy, inverse_of: :team
 
   def display_name
-    handle if handle.present?
+    return handle if handle.present?
     name
   end
 
