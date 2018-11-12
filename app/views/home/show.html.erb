@@ -1,6 +1,8 @@
 
 <% if current_user %>
-  <% if current_user.team.nil? %>
+  <% if current_user.is_admin %>
+    <%= render :partial => 'admin_dash' %>
+  <% elsif current_user.team.nil? %>
     <%= render :partial => 'team_selection' %>
   <% else %>
     <%= render :partial => 'team_dashboard' %>

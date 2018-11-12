@@ -1,14 +1,21 @@
 class TeamsController < ApplicationController
-  before_action :ensure_admin, only: %i[index, destroy, edit, update, export]
+  before_action :ensure_admin, only: %i[index edit update export]
   before_action :set_team, only: %i[edit update destroy dashboard request_join
                                     cancel_join_request accept_join_request deny_join_request
                                     kick quit promote]
   before_action :ensure_auth
 
+  def scoreboard
+    @page_title = "Scoreboard"
+    @teams = Team.all
+
+    @teams = @teams.sort { |a, b| a.total_score <=> b.total_score }
+    @teams = @teams.paginate(page: params[:page], :per_page => 20)
+  end
+
   # GET /teams
   def index
     @page_title = 'List of Teams'
-    @teams = []
     @teams = Team.all
 
     @teams = @teams.sort { |a, b| a.name.downcase <=> b.name.downcase }
@@ -61,6 +68,7 @@ class TeamsController < ApplicationController
   end
 
   def request_join
+    return redirect_to root_path if current_user.team.present?
     if @team.present?
       request = Joinrequest.create(user_id: current_user.id, team_id: @team.id)
       request.save
@@ -71,7 +79,7 @@ class TeamsController < ApplicationController
   def cancel_join_request
     if @team.present?
       request = Joinrequest.where(user_id: current_user.id, team_id: @team.id)
-      request.destroy
+      request.destroy_all
     end
     redirect_to select_join_teams_path
   end
@@ -155,6 +163,8 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1
   def destroy
+    return redirect_to root_path if @team.captain.id != current_user.id
+
     @team.joinrequests.destroy_all
     @team.users.update_all(team_id: nil)
     @team.destroy

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     collection do
       get :select_join
       get :export
+      get :scoreboard
     end
     member do
       get :dashboard
