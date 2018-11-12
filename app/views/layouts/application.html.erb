@@ -15,10 +15,11 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="text-center centered-content col-md-4" style="padding: 10px;">
-            <div class="col-md-5">Signed in as <strong><%= current_user.display_name %></strong></div>
+            <div class="col-md-3">Signed in as <strong><%= current_user.display_name %></strong></div>
             <div class="col-md-3"><%= link_to "Sign out", signout_path, id: "sign_out" %></div>
-            <div class="col-md-4"><%= "         " %></div>
-            <%= link_to "Settings", edit_user_path(id: current_user.id), id: "settings" %>
+            <div class="col-md-3"><%= link_to "Dashboard", root_path, id: "dashboard" %></div>
+            <div class="col-md-3"><%= link_to "Settings", edit_user_path(id: current_user.id), id: "settings" %></div>
+
           </div>
         </div>
       <% else %>

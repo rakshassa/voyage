@@ -22,16 +22,25 @@ class TeamquestsController < ApplicationController
 
     @answer_result = "Wrong!  Try again..."
 
-    if params[:answer] == 'asdf'
+    answer = conform_answer(params[:answer])
+
+    if answer == @step.answer.downcase
       @answer_result = "Correct!  Well done!"
       @teamquest.last_step_completed = @step.step_number
       @teamquest.save
+      flash[:notice] = "Correct!  Well done!"
+      return redirect_to teamquest_path(id: @teamquest.id)
     end
 
     render :step
   end
 
   private
+    def conform_answer(answer)
+      return nil unless answer.present?
+      answer.strip.downcase
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_teamquest
       @teamquest = Teamquest.find(params[:id])

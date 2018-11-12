@@ -1,7 +1,7 @@
 class StepsController < ApplicationController
+  before_action :ensure_admin
   before_action :set_step, only: [:show, :edit, :update, :destroy]
   before_action :set_quest, only: [:new, :create]
-
 
   # GET /steps/1
   def show
@@ -32,7 +32,6 @@ class StepsController < ApplicationController
   end
 
   # PATCH/PUT /steps/1
-
   def update
     @quest = @step.quest
     respond_to do |format|
@@ -72,6 +71,6 @@ class StepsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def step_params
-      params.require(:step).permit(:step_number, :points, :name, :quest_id)
+      params.require(:step).permit(:step_number, :points, :name, :quest_id, :answer, :body)
     end
 end

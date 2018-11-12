@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_action :ensure_admin, only: %i[index, destroy, edit, update, export]
   before_action :set_team, only: %i[edit update destroy dashboard request_join
                                     cancel_join_request accept_join_request deny_join_request
                                     kick quit promote]

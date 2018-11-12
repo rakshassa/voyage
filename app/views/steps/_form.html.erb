@@ -13,8 +13,18 @@
   </div>
 
   <div class="row">
-    <div class="col-md-2"><%= f.label :points, "points", class: "font-weight-bold white-darker-hover" %></div>
+    <div class="col-md-2"><%= f.label :points, "Points", class: "font-weight-bold white-darker-hover" %></div>
     <div class="col-md-2"><%= f.number_field :points %></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"><%= f.label :body, "Body", class: "font-weight-bold white-darker-hover" %></div>
+    <div class="col-md-6"><%= f.text_field :body %></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"><%= f.label :answer, "Answer", class: "font-weight-bold white-darker-hover" %></div>
+    <div class="col-md-6"><%= f.text_field :answer %></div>
   </div>
 
   <%= render 'shared/errors', record: step %>

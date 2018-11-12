@@ -11,7 +11,7 @@
 <br>
 
 <div>
-  Here, we will write our quest text.  It may be useful or funny, but whatever we write... it better be asking a specific question with a specific problem to solve and a specific answer to find.
+  <%= @step.body %>
 </div>
 <br>
 <div>
@@ -26,7 +26,7 @@
         <%= text_field_tag :answer, params[:answer], placeholder: " Type your answer here " %>
       </div>
       <div class="col-md-2">
-        <%= submit_tag "Submit", :name => nil %>
+        <%= submit_tag "Try It!", :name => nil %>
       </div>
     </div>
   <% end %>

@@ -1,4 +1,5 @@
 class QuestsController < ApplicationController
+  before_action :ensure_admin
   before_action :set_quest, only: [:edit, :update, :destroy, :publish, :unpublish]
 
   def publish
