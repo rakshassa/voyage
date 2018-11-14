@@ -92,6 +92,6 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
     - <done> should strip leading/trailing whitespace
     - <done> lower-case-comparison
 
-
-A) pre-reqs
-B) AWs integration
+BIG STUFF TODO:
+A) pre-reqs - DB storage, GUI creation, Logic Enforcment, publish-validate-assign
+B) AWS integration
