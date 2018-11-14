@@ -24,6 +24,8 @@ gem 'turbolinks', '~> 5'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+# read and validate ENV variables
+gem 'envied'
 
 gem "omniauth-google-oauth2", '~> 0.5.3'
 gem 'omniauth-facebook', '~> 5.0.0'

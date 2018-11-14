@@ -92,6 +92,24 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
     - <done> should strip leading/trailing whitespace
     - <done> lower-case-comparison
 
+PRODUCTION:
+1. setup database ENV variables
+   . ../voyage-aws/env_prod.sh
+2. create the database (if not already created)
+  rake db:create db:migrate db:seed RAILS_ENV=production
+3. precompile the assets
+  RAILS_ENV=production bundle exec rake assets:precompile
+4. start the web server
+  rails s -e production
 
-A) pre-reqs
-B) AWs integration
+DEVELOPMENT:
+1. setup database ENV variables
+  . ../voyage-aws/env_dev.sh
+2. create the database (if not already created)
+  rake db:create db:migrate db:seed
+3. start the web server
+  rails s
+
+BIG STUFF TODO:
+A) pre-reqs - DB storage, GUI creation, Logic Enforcment, publish-validate-assign
+B) AWS integration

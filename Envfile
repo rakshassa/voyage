@@ -1,0 +1,13 @@
+enable_defaults! { ENV['RACK_ENV'] != 'production' }
+
+variable :DB_PASSWORD, :string
+variable :DB_USERNAME, :string
+variable :DB_HOSTNAME, :string, default: 'localhost'
+variable :DB_PORT, :integer, default: 5432
+
+# examples with and without environment groupings
+# variable :REDIS_URL, :string, default: 'redis://localhost:6379'
+#
+# group :production do
+#   variable :SECRET_KEY_BASE
+# end
