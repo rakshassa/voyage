@@ -5,7 +5,7 @@
 
 <div class="panel-body centered-content">
   <div class="row" style="padding: 10px;">
-    <% @team.available_quests.each do |teamquest| %>
+    <% @team.available_quests.not_completed.each do |teamquest| %>
       <%= link_to teamquest_path(id: teamquest.id), class: "btn btn-large btn-primary" do %>
           <div class="row"><%= teamquest.quest.name %></div>
           <div class="row"><%= "(" + teamquest.score_earned.to_s + "/" + teamquest.quest.total_score.to_s + ")" %></div>
@@ -14,3 +14,18 @@
   </div>
 </div>
 
+<div class="panel-heading centered-content">
+  <a href="#" id="show_completed_quests">Completed Quests</a>
+</div>
+<!-- Collapsible element -->
+<div  id="completed_quests" class="hidden panel-body centered-content">
+  <div class="row" style="padding: 10px;">
+    <% @team.available_quests.completed.each do |teamquest| %>
+      <%= link_to teamquest_path(id: teamquest.id), class: "btn btn-large btn-primary" do %>
+          <div class="row"><%= teamquest.quest.name %></div>
+          <div class="row"><%= "(" + teamquest.score_earned.to_s + "/" + teamquest.quest.total_score.to_s + ")" %></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<!-- / Collapsible element -->

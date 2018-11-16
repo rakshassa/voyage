@@ -26,6 +26,8 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'bootsnap', '>= 1.1.0', require: false
 # read and validate ENV variables
 gem 'envied'
+# great fonts
+gem "font-awesome-rails"
 
 gem "omniauth-google-oauth2", '~> 0.5.3'
 gem 'omniauth-facebook', '~> 5.0.0'
@@ -34,7 +36,7 @@ gem 'omniauth-twitter', '~> 1.4.0'
 gem 'activerecord-session_store'
 gem 'mdbootstrap-rails', :path => "/code/bootstrap/mdbootstrap-rails"
 # gem 'bootstrap', '~> 4.1.3'
-# gem 'jquery-rails'
+gem 'jquery-rails'
 # gem 'execjs'
 
 gem 'will_paginate'

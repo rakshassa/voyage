@@ -10,6 +10,9 @@ class TeamquestsController < ApplicationController
     return redirect_to root_path unless current_user.team_id == @teamquest.team_id
     return redirect_to root_path unless @teamquest.is_available
     return redirect_to root_path unless @step.present?
+    return redirect_to root_path unless Prereq.is_available(@teamquest.team, @teamquest.quest)
+    return redirect_to root_path unless @teamquest.quest.is_published
+
     return redirect_to root_path unless @teamquest.is_step_completed(@step.step_number) || @teamquest.is_next_step(@step.step_number)
   end
 
@@ -18,6 +21,9 @@ class TeamquestsController < ApplicationController
     return redirect_to root_path unless current_user.team_id == @teamquest.team_id
     return redirect_to root_path unless @teamquest.is_available
     return redirect_to root_path unless @step.present?
+    return redirect_to root_path unless Prereq.is_available(@teamquest.team, @teamquest.quest)
+    return redirect_to root_path unless @teamquest.quest.is_published
+
     return redirect_to root_path unless @teamquest.is_next_step(@step.step_number)
 
     @answer_result = "Wrong!  Try again..."
@@ -29,6 +35,7 @@ class TeamquestsController < ApplicationController
       @teamquest.last_step_completed = @step.step_number
       @teamquest.save
       flash[:notice] = "Correct!  Well done!"
+      Prereq.complete_quest(@teamquest) if @teamquest.is_all_steps_completed
       return redirect_to teamquest_path(id: @teamquest.id)
     end
 

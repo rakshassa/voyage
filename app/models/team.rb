@@ -11,14 +11,26 @@ class Team < ApplicationRecord
   has_many :teamquests, :class_name => 'Teamquest', dependent: :destroy, inverse_of: :team
 
   def self.meets_prereqs(quest)
-    # TODO: only return an activerecord relationship that contains each team
-    # which actually meets all prereqs for quest-step-<lowest>
-    # TODO: make a scope??
-    Team.all
+    prereqs = quest.prereqs
+    return Team.all unless prereqs.present?
+
+    ready_teams = []
+
+    Team.all.each { |team|
+      ready = true
+      prereqs.each { |prereq|
+        required_teamquest = Teamquest.where(team_id: team.id, quest_id: prereq.required_quest_id)
+        ready = false unless required_teamquest.present?
+        ready = false unless required_teamquest.first.is_all_steps_completed
+      }
+      ready_teams << team.id if ready
+    }
+
+    Team.where("teams.id in (?)", ready_teams)
   end
 
   def assign_all_quests
-    quests = Quest.published
+    quests = Quest.published.has_no_prereqs
     quests.each do |quest|
       seed = Teamquest.generate_seed
       status = Teamquest.quest_statuses[:available]

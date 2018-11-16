@@ -1,97 +1,3 @@
-Class diagram is here:
-https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
-
-1. Oauth2
-  - <done> facebook
-  - <done> google
-  - <defer> Twitter - waiting for developer account on twitter
-  - <done> Discord
-
-2. <done> Create database migrations/models
-
-3. Create GUI for teams
-  - <done> create a new team
-  - <done> join an existing team - request/accept/cancel-request/deny
-  - <done> kick a team member (captain)
-  - <done> quit a team (member) / delete a team (captain)
-  - <defer> make my team private (passcode to join)
-  - <defer> I have a passcode (join private team)
-  - <done> change team captain
-  - <done> view team quests
-    + <done> quest (started/not-started)
-      - <done> steps with status and score-value
-        -- <defer> hints (available/used) with penalty-value
-    + use quest pre-requisites
-    + <defer> show random variant - db store which variant each team is using
-    + <done> display points for whole quest-chain (earned/maximum_available/spent_on_hints)
-
-4. Create GUI for quest creation
-  - <done> Quest Name
-  - <done> Number of steps
-    + <done> step name and number
-    + <done> step point value
-    + <defer> step variants with unique: body, answer fields
-    + <done> step body/answer
-    + <defer> step hints: hint-number, cost, text
-    + step pre-requisites (which other quest/steps need to be done before you see this one)
-    + <done> publish/unpublish
-
-5. <done> Create scoreboard
-  - <done> team, score
-  - <defer> spent_on_hints
-
-6. <done> Initial page load
-  - <done> if is logged in
-    - <done> if has team: load team dashboard
-    - <done> else: load team selection
-  - <done> login splash screen
-
-7. <done> User preferences
-  - <done> set handle (shown on scoreboards and team roster)
-
-8. <done> On team creation, assign all available quests (those with no pre-reqs for step 1)
-9. On quest publishing: (after creating steps and pre-reqs)
-  - assign to all teams that meet the pre-reqs for step 1
-  - <defer> unpublish should ask if we want to keep progress for all teams
-
-10. <done> Add an admin user flag to authorize quest_creation GUI
-  - <done>seed admin user
-  - <done>admin login page
-  - <done>salt/hash password in database
-  - <done>change password and name
-  - <done>pages to be "admin_only"
-    + <done>teams index, destroy, edit, update, export
-    + <done>users edit/update should ONLY be from current_user or is_admin
-    + <done>quests: all actions
-    + <done>steps: all actions
-
-11. <defer> Calculate expected answer from variant.answer and teamquest.seed to get unique answer for each team
-12. <defer> Rest API
-13. <defer> Quest Groups - all quests fall into one of 5 static groups
-  - ex: zones, islands, hotels, etc for story purposes
-  - Dashboard shows all groups with:
-    - max_quests_available
-    - quests_completed_by_my_team
-    - quests_completed_by_any_team
-    - quests_to_close_this_zone (to push story forward)
-
-14. AWS Integration
-  - Quest DB Flag: uses_aws
-  - Quest AWS data: json response from lambda startup()
-  - Quest info GUI: display AWS connection information
-    - recommended platform (windows vs nix)
-    - optional AWS interaction instance (IE: IP-address/port to attack)
-  - Team DB and GUI - Jumpbox
-    - windows and nix
-    - jumpbox IP address and creds (pword or PEM)
-    - how-to-use-putty URL
-    - countdown timer for jumpbox to stay "alive" (with 'Need More Time' button)
-
-15. <done> Dashboard button on top menu bar
-16. <done> Answer submission
-    - <done> should strip leading/trailing whitespace
-    - <done> lower-case-comparison
-
 PRODUCTION:
 1. setup database ENV variables
    . ../voyage-aws/env_prod.sh
@@ -110,6 +16,40 @@ DEVELOPMENT:
 3. start the web server
   rails s
 
-BIG STUFF TODO:
-A) pre-reqs - DB storage, GUI creation, Logic Enforcment, publish-validate-assign
-B) AWS integration
+QUEST creation
+1. login as an admin user
+  - \sessions\backdoor
+  - initial user: porcupine
+  - initial password: porcupine69
+  - after initial login, click: "settings" and change your username and password.
+2. click: "dashboard"
+3. Create a quest
+4. Edit the quest and add steps
+  - recommend numbering steps by 100s so you can insert steps between existing steps
+5. Publish the quest.
+
+How does Editing a Quest affect existing teams
+1. Adding a step with a step_number lower than the highest step:
+  - any team having completed a higher step will auto-complete the inserted step (and get scored for it)
+2. Adding a step with a step_number higher than the highest step;
+  - all teams will need to do the new step to get scored for the new step
+  - this quest is no longer considered "completed" for any team
+  - if this quest was a prereq for another quest, then teams who had previously completed this quest will still have access to unlocked quests that were dependent upon this one.  Team who had NOT previously completed this quest will need to finish the new step to unlock dependent quests.
+  - You can unpublish and re-publish any quests which use this quest as a prereq to lock dependent quests
+3. Change the quest name or any step name
+  - immediately updated for all teams
+4. Change the step number for any step
+  - see #1 and #2 above - this treats this step as a new step.
+  - any team who completed this earlier will lose the score for the edited step (but may gain the score back if #1 applies)
+5. Delete a prereq for a quest
+  - You should unpublish and re-publish the quest to make this quest available to any team meeting the remaining prereqs.
+6. Add a prereq for a quest
+  - Teams who already began the quest will SAVE their progress and will retain any scores earned.
+  - You can unpublish and re-publish the quest to remove availability from any team no-longer meeting the prereqs.
+7. Unpublish a quest
+  - Teams can no longer view or answer any step of this quest.
+  - Earned scores will be retained
+  - Progress (completed steps) will be retained (for when it gets published again)
+8. Publish a quest
+  - Any team meeting the prereqs can view the quest
+

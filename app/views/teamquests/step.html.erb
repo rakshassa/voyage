@@ -14,30 +14,32 @@
   <%= @step.body %>
 </div>
 <br>
-<div>
-  <%= form_tag(answer_teamquest_path, method: :post, id: "search-form") do %>
-    <%= hidden_field_tag :id, @teamquest.id %>
-    <%= hidden_field_tag :step_id, @step.id %>
-    <div class="row">
-      <div class="col-md-1">
-        <%= label_tag :answer, "Answer", class: "font-weight-bold white-darker-hover" %>
+<% unless @teamquest.is_step_completed(@step.step_number) %>
+  <div>
+    <%= form_tag(answer_teamquest_path, method: :post, id: "search-form") do %>
+      <%= hidden_field_tag :id, @teamquest.id %>
+      <%= hidden_field_tag :step_id, @step.id %>
+      <div class="row">
+        <div class="col-md-1">
+          <%= label_tag :answer, "Answer", class: "font-weight-bold white-darker-hover" %>
+        </div>
+        <div class="col-md-3">
+          <%= text_field_tag :answer, params[:answer], placeholder: " Type your answer here " %>
+        </div>
+        <div class="col-md-2">
+          <%= submit_tag "Try It!", :name => nil %>
+        </div>
       </div>
-      <div class="col-md-3">
-        <%= text_field_tag :answer, params[:answer], placeholder: " Type your answer here " %>
-      </div>
-      <div class="col-md-2">
-        <%= submit_tag "Try It!", :name => nil %>
-      </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 
-<div>
-  &nbsp
-  <% if @answer_result.present? %>
-    <%= @answer_result %>
-  <% end %>
-</div>
+  <div>
+    &nbsp
+    <% if @answer_result.present? %>
+      <%= @answer_result %>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="row centered-content">
     <%= link_to 'Dashboard', dashboard_team_path(current_user.team), :title => 'Dashboard', class: "btn btn-large btn-warning col-2" %>

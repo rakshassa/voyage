@@ -12,7 +12,7 @@ class QuestsController < ApplicationController
 
   def unpublish
     # TODO: checkbox to "retain progress" or "delete progress"
-    Teamquest.unpublish(@quest, false)
+    Teamquest.unpublish(@quest, true)
 
     @quest.is_published = false
     @quest.save

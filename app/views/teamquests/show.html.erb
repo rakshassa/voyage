@@ -23,7 +23,10 @@
           <th scope="row">
             <% found=false %>
             <% if @teamquest.is_step_completed(step.step_number) %>
-              completed
+              <%= "completed  " %>
+              <%= link_to step_teamquest_path(id: @teamquest.id, step_id: step.id) do  %>
+                <%= fa_icon "eye" %>
+              <% end %>
             <% elsif @teamquest.is_next_step(step.step_number) %>
               <%= link_to 'continue', step_teamquest_path(id: @teamquest.id, step_id: step.id), :title => 'continue', class: "btn btn-primary btn-sm" %>
               <% found=true %>
