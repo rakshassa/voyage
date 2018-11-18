@@ -1,0 +1,26 @@
+<h2>Pre-Requisite Quests</h2>
+
+<table class="table table-hover table-striped table-nonfluid">
+  <thead class="color-header">
+    <tr>
+      <th scope="col"><%= ' Required Quest ' %></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quest.prereqs.each do |prereq| %>
+      <tr>
+        <th scope="row"><%= prereq.required_quest.name %></th>
+
+        <td itemscope><%= link_to 'Remove', removeprereq_quest_path(@quest, prereq_id: prereq.id), method: :post, :title => 'Remove ' + prereq.required_quest.name, data: { confirm: 'Remove this prereq?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_tag(addprereq_quest_path(@quest), :method => "post", id: "addprereq-form") do %>
+  <%= select_tag :required_quest_id, options_from_collection_for_select(@prereq_choices, "id", "name"), {:class => 'col-md-8'} %>
+  <%= hidden_field_tag :quest_id, @quest.id %>
+  <%= submit_tag "Add", :name => nil, class: 'col-md-2' %>
+<% end %>

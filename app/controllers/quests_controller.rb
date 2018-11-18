@@ -1,6 +1,34 @@
 class QuestsController < ApplicationController
   before_action :ensure_admin
-  before_action :set_quest, only: [:edit, :update, :destroy, :publish, :unpublish]
+  before_action :set_quest, only: [:edit, :update, :destroy, :publish, :unpublish, :addprereq, :removeprereq]
+
+  def addprereq
+    Rails.logger.error "Inside adding prereq"
+    required_quest_id = params[:required_quest_id]
+
+    # Make sure we don't already have this prereq
+    unless @quest.prereqs.where(required_quest_id: required_quest_id).present?
+      # Make sure the prereq quest_id actually exists
+      if Quest.where(id: required_quest_id).present?
+        prereq = @quest.prereqs.build(required_quest_id: required_quest_id)
+        prereq.save
+      end
+    end
+
+    redirect_to edit_quest_path(@quest)
+  end
+
+  def removeprereq
+    Rails.logger.error "Inside adding prereq"
+    prereq_id = params[:prereq_id]
+
+    prereq = Prereq.where(id: prereq_id)
+    if prereq.present?
+      prereq.first.destroy
+    end
+
+    redirect_to edit_quest_path(@quest)
+  end
 
   def publish
     Teamquest.publish(@quest)
@@ -31,6 +59,7 @@ class QuestsController < ApplicationController
 
   # GET /quests/1/edit
   def edit
+    @prereq_choices = Quest.all
   end
 
   # POST /quests

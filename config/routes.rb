@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     member do
       post :publish
       post :unpublish
+      post :addprereq
+      post :removeprereq
     end
   end
 

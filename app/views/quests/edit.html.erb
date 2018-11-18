@@ -2,7 +2,11 @@
 
 <%= render 'form', quest: @quest %>
 <br><br>
-<%= render 'steps/index' %>
+
+<div class="row">
+    <div class="col-md-6"><%= render 'steps/index' %></div>
+    <div class="col-md-6"><%= render 'prereqs' %></div>
+</div>
 
 <% if @quest.steps.present? %>
   <% if @quest.is_published %>
