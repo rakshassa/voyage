@@ -37,9 +37,9 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
     + <defer> step variants with unique: body, answer fields
     + <done> step body/answer
     + <defer> step hints: hint-number, cost, text
-    + step pre-requisites (which other quest need to be done before you see this one)
+    + <done> step pre-requisites (which other quest need to be done before you see this one)
       - <done> prereq model
-      - GUI to select/view/edit/remove list of prereq quests
+      - <done> GUI to select/view/edit/remove list of prereq quests
     + <done> publish/unpublish
 
 5. <done> Create scoreboard
@@ -97,12 +97,8 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
 16. <done> Answer submission
     - <done> should strip leading/trailing whitespace
     - <done> lower-case-comparison
-17. Database export to flat files (to save quests/steps/users/teams)
-  - database import from flat files
+17. <done> Database export to flat files (to save quests/steps/users/teams)
+  - <done> database import from flat files
 18. <defer> consider removing teamquest.status and just calculating with:
   - <defer> quest.is_published && quest.all_prereqs_done(team)
 
-BIG STUFF TODO:
-A) pre-reqs - GUI assignment
-B) AWS integration
-C) DB backup/restore
