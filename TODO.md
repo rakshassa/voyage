@@ -11,7 +11,8 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
 
 3. Create GUI for teams
   - <done> create a new team
-  - <done> join an existing team - request/accept/cancel-request/deny
+  - <done> join an existing team - request/cancel-request
+  - <done> team captain can accept/deny join requests
   - <done> kick a team member (captain)
   - <done> quit a team (member) / delete a team (captain)
   - <defer> make my team private (passcode to join)
@@ -28,6 +29,12 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
     + <done> allow viewing completed steps
     + <defer> show random variant - db store which variant each team is using
     + <done> display points for whole quest-chain (earned/maximum_available/spent_on_hints)
+    + <done> display team roster
+    + <done> display join requests to leader unless team is full
+    + <done> indicate team captain
+    + <done> indicate max team size
+    + <done> Team captain can ignore join-requests when team is NOT full but doesn't want more teammates.
+    + <done> Team captain can stop ignoring join-requests
 
 4. Create GUI for quest creation
   - <done> Quest Name

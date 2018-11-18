@@ -9,7 +9,7 @@
       <%= render 'roster' %>
     </div>
 
-    <% if @join_requests.present? %>
+    <% if @join_requests.present? && @team.users.count < APP_CONFIG['max_teamsize'] %>
       <div>
         <%= render 'join_requests' %>
       </div>

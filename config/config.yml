@@ -1,6 +1,7 @@
 defaults: &defaults
 
   max_teamsize: 4
+  page_size: 20
 
 
 # customize below for specific releases

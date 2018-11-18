@@ -2,15 +2,29 @@ class TeamsController < ApplicationController
   before_action :ensure_admin, only: %i[index edit update export]
   before_action :set_team, only: %i[edit update destroy dashboard request_join
                                     cancel_join_request accept_join_request deny_join_request
-                                    kick quit promote]
+                                    kick quit promote ignore_joins watch_joins]
   before_action :ensure_auth
+
+  def ignore_joins
+    return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
+    @team.ignorejoins = true
+    @team.save
+    redirect_to root_path
+  end
+
+  def watch_joins
+    return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
+    @team.ignorejoins = false
+    @team.save
+    redirect_to root_path
+  end
 
   def scoreboard
     @page_title = "Scoreboard"
     @teams = Team.all
 
-    @teams = @teams.sort { |a, b| a.total_score <=> b.total_score }
-    @teams = @teams.paginate(page: params[:page], :per_page => 20)
+    @teams = @teams.sort { |a, b| b.total_score <=> a.total_score }
+    @teams = @teams.paginate(page: params[:page], :per_page => APP_CONFIG['page_size'])
   end
 
   # GET /teams
@@ -19,7 +33,7 @@ class TeamsController < ApplicationController
     @teams = Team.all
 
     @teams = @teams.sort { |a, b| a.name.downcase <=> b.name.downcase }
-    @teams = @teams.paginate(page: params[:page], :per_page => 20)
+    @teams = @teams.paginate(page: params[:page], :per_page => APP_CONFIG['page_size'])
   end
 
   def select_join
@@ -30,7 +44,7 @@ class TeamsController < ApplicationController
     @teams = Team.unfull
 
     @teams = @teams.sort { |a, b| a.name.downcase <=> b.name.downcase }
-    @teams = @teams.paginate(page: params[:page], :per_page => 20)
+    @teams = @teams.paginate(page: params[:page], :per_page => APP_CONFIG['page_size'])
   end
 
   def promote

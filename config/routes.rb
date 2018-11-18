@@ -28,6 +28,8 @@ Rails.application.routes.draw do
       post :accept_join_request
       post :deny_join_request
       post :promote
+      post :ignore_joins
+      post :watch_joins
     end
   end
 
