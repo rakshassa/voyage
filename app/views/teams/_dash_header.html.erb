@@ -1,0 +1,18 @@
+<div class="row" style="background: #4285F4;">
+  <div class="col-2">
+    <div class="m-2 text-center p-2">
+      <%= "Score: " + @team.total_score.to_s + "/" + @team.max_score.to_s %>
+    </div>
+  </div>
+  <div class="col-8">
+    <h2 class="font-weight-bold text-center p-2" style="color: white;"><%= current_user.team.name %></h2>
+  </div>
+  <div class="col-2">
+    <%= link_to details_team_path(@team), class: 'btn btn-warning pull-right p-2 m-2' do %>
+      Manage Team
+      <% if @show_join_requests %>
+        <%= content_tag :span, @join_requests.count, class: 'badge badge-success badge-pill pull-right' %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
     member do
       get :dashboard
+      get :details
       post :kick
       post :quit
       post :request_join

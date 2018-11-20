@@ -3,10 +3,12 @@
       <tr>
         <th scope="col">Join Requests</th>
         <th scope="col" colspan="2">
-          <% if @team.ignorejoins %>
-            <%= link_to 'View', watch_joins_team_path(@team), method: :post, :title => 'View Join Requests ' + @team.name, class: 'btn btn-primary btn-sm' %>
-          <% else %>
-            <%= link_to 'Ignore', ignore_joins_team_path(@team), method: :post, :title => 'Ignore Join Requests ' + @team.name, class: 'btn btn-primary btn-sm' %>
+          <% if @team.captain.id == current_user.id %>
+            <% if @team.ignorejoins %>
+              <%= link_to 'View', watch_joins_team_path(@team), method: :post, :title => 'View Join Requests ' + @team.name, class: 'btn btn-primary btn-sm' %>
+            <% else %>
+              <%= link_to 'Ignore', ignore_joins_team_path(@team), method: :post, :title => 'Ignore Join Requests ' + @team.name, class: 'btn btn-primary btn-sm' %>
+            <% end %>
           <% end %>
         </th>
       </tr>
@@ -20,7 +22,7 @@
         <tr>
           <th scope="row"><%= join_request.user.display_name %>&nbsp&nbsp&nbsp&nbsp</th>
 
-          <% if @team.captain.id == join_request.user.id || @team.captain.id != current_user.id %>
+          <% if @team.captain.id != current_user.id %>
             <td itemscope><%= ' ' %></td>
             <td itemscope><%= ' ' %></td>
           <% else %>

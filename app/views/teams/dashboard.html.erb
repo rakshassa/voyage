@@ -1,43 +1,15 @@
 
-<div style="background: #4285F4;">
-  <h2 class="font-weight-bold text-center" style="color: white; padding: 10px;"><%= current_user.team.name %></h2>
-</div>
+<%= render 'dash_header' %>
 
 <div class="row">
-  <div class="col-md-4">
-    <div>
-      <%= render 'roster' %>
-    </div>
-
-    <% if @join_requests.present? && @team.users.count < APP_CONFIG['max_teamsize'] %>
-      <div>
-        <%= render 'join_requests' %>
-      </div>
-    <% end %>
+  <div class="col-md-4 text-center">
+    Add
   </div>
-
-  <div class="col-md-4">
-    <div class="text-center">
-      <%= "Score: " + @team.total_score.to_s + "/" + @team.max_score.to_s %>
-    </div>
+  <div class="col-md-4 text-center">
+    Content
   </div>
-
-  <div class="col-md-4">
-    <div>
-      <% if current_user.id == @team.captain.id %>
-        <%= link_to 'Delete this team', @team, method: :delete, :title => 'Delete the team', data: { confirm: 'Are you sure you want to delete this team?  All progress will be lost permanently.  This can not be undone!' }, class: "btn btn-large btn-warning pull-right" %>
-        <br>
-        <button type="button" class="btn btn-primary">
-          Badge Test <span class="badge badge-success badge-pill"><%= @team.users.count %></span>
-        </button>
-        <br>
-        <%= link_to '#messages', class: 'btn btn-primary', data: {toggle: :tab} do %>
-            Badge Test <%= content_tag :span, @team.users.count, class: 'badge badge-success badge-pill' %>
-        <% end %>
-      <% else %>
-        <%= link_to 'Leave the team', quit_team_path(@team), method: :post, :title => 'Quit the team', data: { confirm: 'Are you sure you want to quit this team?' }, class: "btn btn-large btn-warning" %>
-      <% end %>
-    </div>
+  <div class="col-md-4 text-center">
+    Here
   </div>
 </div>
 

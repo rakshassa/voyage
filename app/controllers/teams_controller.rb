@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :ensure_admin, only: %i[index edit update export]
-  before_action :set_team, only: %i[edit update destroy dashboard request_join
+  before_action :set_team, only: %i[edit update destroy dashboard request_join details
                                     cancel_join_request accept_join_request deny_join_request
                                     kick quit promote ignore_joins watch_joins]
   before_action :ensure_auth
@@ -9,14 +9,14 @@ class TeamsController < ApplicationController
     return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
     @team.ignorejoins = true
     @team.save
-    redirect_to root_path
+    redirect_to details_team_path(@team)
   end
 
   def watch_joins
     return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
     @team.ignorejoins = false
     @team.save
-    redirect_to root_path
+    redirect_to details_team_path(@team)
   end
 
   def scoreboard
@@ -57,7 +57,7 @@ class TeamsController < ApplicationController
     @team.team_captain_id = user_id
     @team.save
 
-    redirect_to root_path
+    redirect_to details_team_path(@team)
   end
 
   def quit
@@ -78,7 +78,7 @@ class TeamsController < ApplicationController
       record.team_id = nil
       record.save
     end
-    redirect_to root_path
+    redirect_to details_team_path(@team)
   end
 
   def request_join
@@ -112,7 +112,7 @@ class TeamsController < ApplicationController
       user.team_id = @team.id
       user.save
     end
-    redirect_to dashboard_team_path(@team)
+    redirect_to details_team_path(@team)
   end
 
   def deny_join_request
@@ -126,12 +126,24 @@ class TeamsController < ApplicationController
       requests = Joinrequest.where(user_id: user.id, team_id: @team.id)
       requests.destroy_all
     end
-    redirect_to dashboard_team_path(@team)
+    redirect_to details_team_path(@team)
+  end
+
+  def details
+    return redirect_to root_path if current_user.team_id != @team.id
+
+    @join_requests = Joinrequest.for_team(@team.id)
   end
 
   def dashboard
-    @join_requests = Joinrequest.for_team(@team.id)
     return redirect_to root_path if current_user.team_id != @team.id
+    @join_requests = Joinrequest.for_team(@team.id)
+
+    @show_join_requests =
+      @team.ignorejoins.blank? &&
+      @team.captain.id == current_user.id &&
+      @join_requests.present? &&
+      @team.users.count < APP_CONFIG['max_teamsize']
   end
 
   # GET /teams/new

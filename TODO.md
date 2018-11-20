@@ -108,12 +108,10 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
   - <done> database import from flat files
 18. <defer> consider removing teamquest.status and just calculating with:
   - <defer> quest.is_published && quest.all_prereqs_done(team)
-19. Team Details page linked from dashboard with roster, join requests, and leave/delete-this-team
-  - Need an indicator that someone wants to join your team (small red circle with number inside)
-  - indicator is suppressed when ignoring join requests
-20. Switch to official bootstrap instead of using mdbootstrap.  Consider static js/css/images/fonts
-  - note this: https://mdbootstrap.com/support/jquery/problems-with-pro-components-2
-  - it explains how to static load mdbootstrap and fix the font problems.
-  - re-enable turbolinks from git repo (two places in application.html.erb, js/css, gemfile)
-  - fix layouts
-  - hidden_toggle.js has turbolinks startup
+19. <done> Team Details page linked from dashboard with roster, join requests, and leave/delete-this-team
+  - <done> Need an indicator that someone wants to join your team (small red circle with number inside)
+  - <done> indicator is suppressed when ignoring join requests
+20. <done> Switch to official bootstrap instead of using mdbootstrap.  Consider static js/css/images/fonts
+  - <done> note this: https://mdbootstrap.com/support/jquery/problems-with-pro-components-2
+  - <done> it explains how to static load mdbootstrap and fix the font problems.
+
