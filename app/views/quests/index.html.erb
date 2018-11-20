@@ -11,14 +11,14 @@
     <% @quests.each do |quest| %>
       <tr>
         <td><%= quest.name %></td>
-        <td><%= link_to 'Edit', edit_quest_path(quest) %></td>
-        <td><%= link_to 'Delete', quest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_quest_path(quest), class: 'p-2' %></td>
+        <td><%= link_to 'Delete', quest, method: :delete, data: { confirm: 'Are you sure?' }, class: 'p-2' %></td>
         <td>
           <% if quest.steps %>
             <% if quest.is_published %>
-              <%= link_to 'Unpublish', unpublish_quest_path(quest), method: :post %></td>
+              <%= link_to 'Unpublish', unpublish_quest_path(quest), method: :post, class: 'p-2' %></td>
             <% else %>
-              <%= link_to 'Publish', publish_quest_path(quest), method: :post %></td>
+              <%= link_to 'Publish', publish_quest_path(quest), method: :post, class: 'p-2' %></td>
             <% end %>
           <% end %>
         </td>

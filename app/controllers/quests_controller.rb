@@ -39,7 +39,6 @@ class QuestsController < ApplicationController
   end
 
   def unpublish
-    # TODO: checkbox to "retain progress" or "delete progress"
     Teamquest.unpublish(@quest, true)
 
     @quest.is_published = false
@@ -59,7 +58,7 @@ class QuestsController < ApplicationController
 
   # GET /quests/1/edit
   def edit
-    @prereq_choices = Quest.all
+    @prereq_choices = Quest.not_prereq_of(@quest.id)
   end
 
   # POST /quests

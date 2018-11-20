@@ -1,9 +1,14 @@
 
 <%= form_for(quest) do |f| %>
-  <div class="row">
-      <div class="col-md-2"><%= f.label :name, "Name", class: "font-weight-bold white-darker-hover" %></div>
-      <div class="col-md-4"><%= f.text_field :name, placeholder: " Type your Quest Name here " %></div>
-      <div class="col-md-2"><%= f.submit 'Save' %></div>
+  <div class="col-6">
+    <%= f.label :searchchurch, "Name", class: "font-weight-bold" %>
+    <div class="input-group input-group-lg">
+      <%= f.text_field :name, placeholder: " Type your Quest Name here ", class: 'form-control input-lg', id: "searchurch" %>
+
+      <span class="input-group-btn">
+        <%= f.submit 'Save', class: "btn btn-default btn-lg" %>
+      </span>
+    </div>
   </div>
   <br>
   <%= render 'shared/errors', record: quest %>
