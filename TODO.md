@@ -89,7 +89,8 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
     - <defer> quests_to_close_this_zone (to push story forward)
 
 14. AWS Integration
-  - Quest DB Flag: uses_aws
+  - Team Creation trigger -> AWS.team_created(team_id)
+    + poll for stack completion to retrieve the team.security_group (store in local DB)
   - Quest AWS data: json response from lambda startup()
   - Quest info GUI: display AWS connection information
     - recommended platform (windows vs nix)

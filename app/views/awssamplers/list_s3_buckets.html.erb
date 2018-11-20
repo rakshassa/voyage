@@ -1,0 +1,19 @@
+<h1>S3 Buckets</h1>
+
+<table class="table table-hover table-striped table-nonfluid">
+  <thead class="color-header">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Creation Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @buckets.each do |bucket| %>
+      <tr >
+        <th scope="row"><%= bucket.name %></th>
+        <td><%= bucket.creation_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

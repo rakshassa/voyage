@@ -13,6 +13,12 @@ Rails.application.routes.draw do
 
   root to: "home#show"
 
+  resource :awssampler do
+    member do
+      get :list_s3_buckets
+    end
+  end
+
   resources :teams, :only => %i[index new create edit update destroy] do
     collection do
       get :select_join
