@@ -1,11 +1,15 @@
 <%= form_for(@team) do |f| %>
 
-  <div class="row">
-      <div class="col-md-2"><%= f.label :name, "Name", class: "font-weight-bold white-darker-hover" %></div>
-      <div class="col-md-6"><%= f.text_field :name, placeholder: " Type your Team Name here " %></div>
+  <div class="col-6">
+    <%= f.label :name, "Name", class: "font-weight-bold" %>
+    <div class="input-group input-group-lg">
+      <%= f.text_field :name, placeholder: " Type your Team Name here ", class: 'form-control input-lg' %>
+    </div>
   </div>
 
-  <%= f.hidden_field :team_captain_id, :value => current_user.id %>
+  <% unless current_user.is_admin %>
+    <%= f.hidden_field :team_captain_id, :value => current_user.id %>
+  <% end %>
 
   <%= render 'shared/errors', record: @team %>
 

@@ -1,13 +1,15 @@
 <h1>Teams</h1>
 
-<%= link_to "Export", export_teams_path(format: "csv"), class: "btn btn-large btn-warning" %>
+<%= link_to "Export", export_teams_path(format: "csv"), class: "btn btn-large btn-warning mb-2" %>
 
-<div class="apple_pagination">
-    <div class="page_info">
-      <%= page_entries_info @teams %>
-    </div>
-    <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer  %>
-</div>
+<% if Team.all.count > APP_CONFIG['page_size'] %>
+  <div class="apple_pagination">
+      <div class="page_info">
+        <%= page_entries_info @teams %>
+      </div>
+      <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer  %>
+  </div>
+<% end %>
 
 <table class="table table-hover table-striped table-nonfluid">
     <thead class="color-header">
@@ -28,14 +30,13 @@
   </tbody>
 </table>
 
-<div class="apple_pagination">
-    <div class="page_info">
-      <%= page_entries_info @teams %>
-    </div>
-    <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer %>
-</div>
+<% if Team.all.count > APP_CONFIG['page_size'] %>
+  <div class="apple_pagination">
+      <div class="page_info">
+        <%= page_entries_info @teams %>
+      </div>
+      <%= will_paginate @teams, :container => false, :renderer => Paginationrenderer %>
+  </div>
+<% end %>
 
-<br>
-
-<%= link_to 'New Team', new_team_path, :class => 'btn btn-large btn-primary' %>
 

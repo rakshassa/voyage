@@ -2,35 +2,45 @@
 
   <%= f.hidden_field :quest_id, :value => quest.id %>
 
-  <div class="row">
-    <div class="col-md-2"><%= f.label :step_number, "Step Number", class: "font-weight-bold white-darker-hover" %></div>
-    <div class="col-md-2"><%= f.number_field :step_number %></div>
+  <div class="col-2 mb-4">
+    <%= f.label :step_number, "Step Number", class: "font-weight-bold" %>
+    <div class="input-group input-group-lg">
+      <%= f.number_field :step_number, in: 1...100, step: 1, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="row">
-      <div class="col-md-2"><%= f.label :name, "Name", class: "font-weight-bold white-darker-hover" %></div>
-      <div class="col-md-6"><%= f.text_field :name, placeholder: " Type your Step Name here " %></div>
+  <div class="col-6 mb-4">
+    <%= f.label :name, "Name", class: "font-weight-bold" %>
+    <div class="input-group input-group-lg">
+      <%= f.text_field :name, placeholder: " Step Name ", maxlength: 50, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-2"><%= f.label :points, "Points", class: "font-weight-bold white-darker-hover" %></div>
-    <div class="col-md-2"><%= f.number_field :points %></div>
+  <div class="col-2 mb-4">
+    <%= f.label :points, "Points", class: "font-weight-bold" %>
+    <div class="input-group input-group-lg">
+      <%= f.number_field :points, in: 1...100, step: 1, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-2"><%= f.label :body, "Body", class: "font-weight-bold white-darker-hover" %></div>
-    <div class="col-md-6"><%= f.text_field :body %></div>
+  <div class="col-6 mb-4">
+    <%= f.label :body, "Body", class: "font-weight-bold" %>
+    <div class="input-group input-group-lg">
+      <%= f.text_area :body, rows: 5, style: 'width:100%;' %>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-2"><%= f.label :answer, "Answer", class: "font-weight-bold white-darker-hover" %></div>
-    <div class="col-md-6"><%= f.text_field :answer %></div>
+  <div class="col-6 mb-4">
+    <%= f.label :answer, "Answer", class: "font-weight-bold" %>
+    <div class="input-group input-group-lg">
+      <%= f.text_field :answer, placeholder: " Answer goes here ", maxlength: 50, class: 'form-control' %>
+    </div>
   </div>
 
   <%= render 'shared/errors', record: step %>
 
   <div class="actions">
     <%= f.submit ' Save ', :class => 'btn btn-large btn-primary' %>
-    <%= link_to 'Cancel', root_path, :class => 'btn btn-large btn-primary' %>
+    <%= link_to 'Cancel', edit_quest_path(@step.quest), :class => 'btn btn-large btn-primary' %>
   </div>
 <% end %>

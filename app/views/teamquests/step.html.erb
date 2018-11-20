@@ -19,17 +19,17 @@
     <%= form_tag(answer_teamquest_path, method: :post, id: "search-form") do %>
       <%= hidden_field_tag :id, @teamquest.id %>
       <%= hidden_field_tag :step_id, @step.id %>
-      <div class="row">
-        <div class="col-md-1">
-          <%= label_tag :answer, "Answer", class: "font-weight-bold white-darker-hover" %>
-        </div>
-        <div class="col-md-3">
-          <%= text_field_tag :answer, params[:answer], placeholder: " Type your answer here " %>
-        </div>
-        <div class="col-md-2">
-          <%= submit_tag "Try It!", :name => nil %>
+      <div class="col-6">
+        <%= label_tag :answer, "Answer", class: "font-weight-bold" %>
+        <div class="input-group input-group-lg">
+          <%= text_field_tag :answer, params[:answer], placeholder: " Type your Answer here ", class: 'form-control input-lg' %>
+
+          <span class="input-group-btn">
+            <%= submit_tag 'Try It!', class: "btn btn-default btn-lg" %>
+          </span>
         </div>
       </div>
+
     <% end %>
   </div>
 

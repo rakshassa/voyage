@@ -1,4 +1,4 @@
-<% if @teams.count > APP_CONFIG['page_size'] %>
+<% if Team.all.count > APP_CONFIG['page_size'] %>
   <div class="apple_pagination">
       <div class="page_info">
         <%= page_entries_info @teams %>
@@ -33,7 +33,7 @@
   </tbody>
 </table>
 
-<% if @teams.count > APP_CONFIG['page_size'] %>
+<% if Team.all.count > APP_CONFIG['page_size'] %>
   <div class="apple_pagination">
       <div class="page_info">
         <%= page_entries_info @teams %>

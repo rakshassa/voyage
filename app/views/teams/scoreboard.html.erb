@@ -1,6 +1,6 @@
 <h1>Team Scores</h1>
 
-<% if @teams.count > 20 %>
+<% if Team.all.count > 20 %>
 <div class="apple_pagination">
     <div class="page_info">
       <%= page_entries_info @teams %>
@@ -27,7 +27,7 @@
   </tbody>
 </table>
 
-<% if @teams.count > 20 %>
+<% if Team.all.count > 20 %>
 <div class="apple_pagination">
     <div class="page_info">
       <%= page_entries_info @teams %>

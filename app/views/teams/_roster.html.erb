@@ -11,18 +11,22 @@
     <% roster_users = @team.users.sort_by{ |obj| obj.display_name.downcase } %>
     <% roster_users.each do |user| %>
       <tr>
-        <% if @team.captain.id == user.id %>
+        <% if @team.team_captain_id == user.id %>
           <th scope="row"><%= fa_icon "star" %>
         <% else %>
           <th scope="row"><%= '' %>
         <% end %>
         <th itemscope><%= user.display_name %>&nbsp&nbsp&nbsp&nbsp</th>
 
-        <% if @team.captain.id == user.id || @team.captain.id != current_user.id %>
+        <% if user.id == current_user.id %>
           <td itemscope colspan="2"><%= ' This is you ' %></td>
         <% else %>
-          <td itemscope><%= link_to 'Kick', kick_team_path(@team, user_id: user.id), method: :post, :title => 'Kick ' + user.display_name, data: { confirm: 'Are you sure you want to kick ' + user.display_name + '?' } %></td>
-          <td itemscope><%= link_to 'Promote', promote_team_path(@team, user_id: user.id), method: :post, :title => 'Promote ' + user.display_name, data: { confirm: 'Are you sure you want ' + user.display_name + ' to be the team captain?' } %></td>
+          <% if user.id == @team.team_captain_id %>
+            <td itemscope><%= link_to 'Kick', kick_team_path(@team, user_id: user.id), method: :post, :title => 'Kick ' + user.display_name, data: { confirm: 'Are you sure you want to kick ' + user.display_name + '?' } %></td>
+            <td itemscope><%= link_to 'Promote', promote_team_path(@team, user_id: user.id), method: :post, :title => 'Promote ' + user.display_name, data: { confirm: 'Are you sure you want ' + user.display_name + ' to be the team captain?' } %></td>
+          <% else %>
+            <td itemscope colspan="2"><%= '' %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>
