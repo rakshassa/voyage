@@ -14,10 +14,13 @@ gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'duktape'
+# duktape makes nodejs NOT work - causing execjs runtime errors.
+# comment out duktape and execjs, install nodejs and have it in the path.
+# gem 'duktape'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails'
-gem 'coffee-script-source'
+# Updated coffee-script-source doesn't work on windows 10 with rails 5.
+gem 'coffee-script-source', '1.8.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # password encryption and salting
@@ -34,10 +37,9 @@ gem 'omniauth-facebook', '~> 5.0.0'
 gem 'omniauth-discord', '~> 0.1.8'
 gem 'omniauth-twitter', '~> 1.4.0'
 gem 'activerecord-session_store'
-gem 'mdbootstrap-rails', :path => "/code/bootstrap/mdbootstrap-rails"
-# gem 'bootstrap', '~> 4.1.3'
+
+gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
-# gem 'execjs'
 
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'

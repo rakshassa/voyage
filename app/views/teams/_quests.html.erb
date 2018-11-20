@@ -1,31 +1,43 @@
 
-<div class="panel-heading centered-content">
+<div class="panel-heading text-center">
   <h4 class="font-weight-bold">Your Quests</h4>
 </div>
 
-<div class="panel-body centered-content">
-  <div class="row" style="padding: 10px;">
+<div class="panel-body mx-auto text-center">
+  <ul id="quest-pane" class="list-inline">
     <% @team.available_quests.not_completed.each do |teamquest| %>
-      <%= link_to teamquest_path(id: teamquest.id), class: "btn btn-large btn-primary" do %>
-          <div class="row"><%= teamquest.quest.name %></div>
-          <div class="row"><%= "(" + teamquest.score_earned.to_s + "/" + teamquest.quest.total_score.to_s + ")" %></div>
-      <% end %>
+      <li class="list-inline-item">
+        <%= link_to teamquest_path(id: teamquest.id), class: "btn btn-large btn-primary" do %>
+            <%= teamquest.quest.name %>
+            <br>
+            <small>
+              <%= "(" + teamquest.score_earned.to_s + "/" + teamquest.quest.total_score.to_s + ")" %>
+            </small>
+        <% end %>
+      </li>
     <% end %>
-  </div>
+  </ul>
 </div>
 
-<div class="panel-heading centered-content">
-  <a href="#" id="show_completed_quests">Completed Quests</a>
-</div>
-<!-- Collapsible element -->
-<div  id="completed_quests" class="hidden panel-body centered-content">
-  <div class="row" style="padding: 10px;">
-    <% @team.available_quests.completed.each do |teamquest| %>
-      <%= link_to teamquest_path(id: teamquest.id), class: "btn btn-large btn-primary" do %>
-          <div class="row"><%= teamquest.quest.name %></div>
-          <div class="row"><%= "(" + teamquest.score_earned.to_s + "/" + teamquest.quest.total_score.to_s + ")" %></div>
-      <% end %>
-    <% end %>
+<% if @team.available_quests.completed.present? %>
+
+  <div class="panel-heading text-center">
+    <a href="#" id="show_completed_quests">Completed Quests</a>
   </div>
-</div>
-<!-- / Collapsible element -->
+  <!-- Collapsible element -->
+  <div  id="completed_quests" class="hidden panel-body mx-auto text-center">
+    <ul id="quest-pane" class="p-3 list-inline">
+      <% @team.available_quests.completed.each do |teamquest| %>
+        <li class="list-inline-item">
+          <%= link_to teamquest_path(id: teamquest.id), class: "btn btn-large btn-primary" do %>
+              <%= teamquest.quest.name %>
+              <br>
+              <small>
+                <%= "(" + teamquest.score_earned.to_s + "/" + teamquest.quest.total_score.to_s + ")" %>
+              </small>
+          <% end %>
+        </li>
+      <% end %>
+    </div>
+  </div>
+<% end %>
