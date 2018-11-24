@@ -96,10 +96,11 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
     - recommended platform (windows vs nix)
     - optional AWS interaction instance (IE: IP-address/port to attack)
   - Team DB and GUI - Jumpbox
-    - windows and nix
+    - windows and nix (online/offlie status - button to check status)
     - jumpbox IP address and creds (pword or PEM)
     - how-to-use-putty URL
-    - countdown timer for jumpbox to stay "alive" (with 'Need More Time' button)
+    - <defer> countdown timer for jumpbox to stay "alive" (with 'Need More Time' button)
+  - Team Deletion trigger -> AWS.teardown_stack(team_id)
 
 15. <done> Dashboard button on top menu bar
 16. <done> Answer submission
@@ -115,4 +116,28 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
 20. <done> Switch to official bootstrap instead of using mdbootstrap.  Consider static js/css/images/fonts
   - <done> note this: https://mdbootstrap.com/support/jquery/problems-with-pro-components-2
   - <done> it explains how to static load mdbootstrap and fix the font problems.
+21. API so SNS can inform app-server when stack is completed
+  - <done> api controller and routes
+  - <done> test sample api method with python
+  - implement "stack_complete" to update database with AWS data
 
+22. DevOps toolchain
+  - Listen for github master-pull-requests
+  - auto-update app server
+  - Move to AWS git repo
+23. rspec tests
+  - write them
+  - run them on master-pull-requests
+24. <done> Practice with cloud formation
+  - <done> create a new template - store stack_id in Database with the team
+  - <done> monitor for completion status (NOTE: will be replaced by API invoked from SNS)
+  - <done> get resulting URL
+  - <done> SSH into the web server using keypair
+  - <done> delete stack
+25. Practice creating cloud formation stack via lambda
+  - pass in parameter: team-id
+  - result: public dns of jumpbox
+26. <done> Create keypair and store to s3
+  - <done> cope with existing keypair and existing s3 bucket
+  - <done> signed_url to download keypair (with timeout)
+27. <done> Team Index (admin view) should have dashboard and manage links so admin can view team perspectives

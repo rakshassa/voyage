@@ -7,7 +7,7 @@ class TeamquestsController < ApplicationController
 
   def step
     return redirect_to root_path unless @teamquest.present?
-    return redirect_to root_path unless current_user.team_id == @teamquest.team_id
+    return redirect_to root_path unless current_user.is_admin || current_user.team_id == @teamquest.team_id
     return redirect_to root_path unless @teamquest.is_available
     return redirect_to root_path unless @step.present?
     return redirect_to root_path unless Prereq.is_available(@teamquest.team, @teamquest.quest)

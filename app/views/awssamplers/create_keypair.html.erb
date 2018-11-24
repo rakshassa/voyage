@@ -1,0 +1,37 @@
+Use this URL to download your SSH Key Pair.
+<br>
+Remember, this is a secret used by your team to access your UNIX jumpbox.
+<br>
+If anyone else gets this key pair, they can access your jumpbox, too!
+<br>
+<strong>Keep it safe!</strong>
+<br><br>
+This URL link will expire in <strong>10 minutes</strong>.
+<br><br>
+
+<%= link_to "Download Your Key Pair", @url, :target => "_blank", :class => 'btn btn-large btn-success' %>
+
+
+<br><br>
+We are preparing your AWS account resources.  This will take a few minutes.
+<br>
+Once your resources are ready, you can follow
+<%= link_to " these instructions ", 'https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html', :target => "_blank" %>
+to connect to your AWS development box.
+
+<%= form_tag(check_status_awssamplers_path, :method => "post", id: "checkstatus-form") do %>
+  <div class="input-group col-md-4">
+    <%= text_field_tag :status, @status, disabled: true, :class => 'form-control' %>
+    <%= hidden_field_tag :url, @url %>
+    <%= hidden_field_tag :team_id, @team.id %>
+    <span class="input-group-btn">
+      <%= submit_tag "Check Status", :name => nil, class: 'btn btn-success' %>
+    </span>
+  </div>
+<% end %>
+
+<% if @output.present? %>
+  <%= 'Your Development box is: ' + @output.to_s %>
+  <br>
+  <%= link_to 'Delete AWS Resources', delete_stack_awssamplers_path(team_id: @team.id), class: "btn btn-large btn-warning" %>
+<% end %>

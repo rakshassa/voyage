@@ -1,0 +1,11 @@
+<h2>Test all your AWS connections</h2>
+<br><br>
+
+<%= form_tag(create_keypair_awssamplers_path, :method => "post", id: "create-keypair-form") do %>
+  <div class="input-group col-md-4">
+    <%= select_tag :team_id, options_from_collection_for_select(Team.all, "id", "name"), {:class => 'form-control'} %>
+    <span class="input-group-btn">
+      <%= submit_tag "Create Team Stack", :name => nil, class: 'btn btn-success' %>
+    </span>
+  </div>
+<% end %>

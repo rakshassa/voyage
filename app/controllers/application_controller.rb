@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_admin
-    return redirect_to(root_path), notice: 'Your Unauthorized Access Attempt has been logged.' unless current_user.is_admin
+    return redirect_to(root_path), notice: 'Your Unauthorized Access Attempt has been logged.' unless current_user.present? && current_user.is_admin
     true
   end
 end

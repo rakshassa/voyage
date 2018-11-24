@@ -47,6 +47,11 @@ gem 'will_paginate-bootstrap'
 # might need this line before first call: Aws.use_bundled_cert!
 gem 'aws-sdk-rails'
 gem 'aws-sdk-s3'
+gem 'aws-sdk-ec2'
+gem 'aws-sdk-cloudformation'
+
+# For API
+gem 'responders'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -25,6 +25,8 @@
         <th scope="row"><%= team.name %>&nbsp&nbsp&nbsp&nbsp</th>
         <td itemscope><%= link_to 'Delete', team, method: :delete, :title => 'Delete ' + team.name, data: { confirm: 'Delete this team?' } %></td>
         <td itemscope><%= link_to 'Edit', edit_team_path(team) %></td>
+        <td itemscope><%= link_to 'Dashboard', dashboard_team_path(team) %></td>
+        <td itemscope><%= link_to 'Manage', details_team_path(team) %></td>
       </tr>
     <% end %>
   </tbody>

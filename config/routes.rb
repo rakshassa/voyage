@@ -13,7 +13,12 @@ Rails.application.routes.draw do
 
   root to: "home#show"
 
-  resource :awssampler do
+  resources :awssamplers, :only => %i[index] do
+    collection do
+      post :create_keypair
+      get :delete_stack
+      post :check_status
+    end
     member do
       get :list_s3_buckets
     end
@@ -59,4 +64,14 @@ Rails.application.routes.draw do
   end
 
   resources :steps
+
+  namespace :api do
+    namespace :v1 do
+      resources :api do
+        collection do
+          post :stack_complete
+        end
+      end
+    end
+  end
 end

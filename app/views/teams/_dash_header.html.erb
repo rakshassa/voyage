@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="col-8">
-    <h2 class="font-weight-bold text-center p-2" style="color: white;"><%= current_user.team.name %></h2>
+    <h2 class="font-weight-bold text-center p-2" style="color: white;"><%= @team.name %></h2>
   </div>
   <div class="col-2">
     <%= link_to details_team_path(@team), class: 'btn btn-warning pull-right p-2 m-2' do %>

@@ -1,19 +1,20 @@
 class TeamsController < ApplicationController
+  before_action :ensure_auth
   before_action :ensure_admin, only: %i[index edit update export]
   before_action :set_team, only: %i[edit update destroy dashboard request_join details
                                     cancel_join_request accept_join_request deny_join_request
                                     kick quit promote ignore_joins watch_joins]
-  before_action :ensure_auth
+  before_action :ensure_team_member, only: %i[dashboard details]
+  before_action :ensure_captain, only: %i[ignore_joins watch_joins promote kick destroy
+                                          accept_join_request deny_join_request]
 
   def ignore_joins
-    return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
     @team.ignorejoins = true
     @team.save
     redirect_to details_team_path(@team)
   end
 
   def watch_joins
-    return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
     @team.ignorejoins = false
     @team.save
     redirect_to details_team_path(@team)
@@ -48,8 +49,6 @@ class TeamsController < ApplicationController
   end
 
   def promote
-    return redirect_to root_path if current_user.nil? || current_user.id != @team.team_captain_id
-
     user_id = params[:user_id]
     records = User.where(id: user_id)
     return redirect_to root_path unless records.present?
@@ -61,7 +60,7 @@ class TeamsController < ApplicationController
   end
 
   def quit
-    return redirect_to root_path if current_user.nil? || current_user.id == @team.team_captain_id
+    return redirect_to root_path if current_user.id == @team.team_captain_id
 
     current_user.team_id = nil
     current_user.save
@@ -70,7 +69,6 @@ class TeamsController < ApplicationController
   end
 
   def kick
-    return redirect_to root_path unless current_user.id == @team.team_captain_id
     user_id = params[:user_id]
 
     records = User.where(id: user_id)
@@ -99,8 +97,6 @@ class TeamsController < ApplicationController
   end
 
   def accept_join_request
-    return redirect_to root_path if @team.captain.id != current_user.id
-
     user_id = params['user_id']
     user_records = User.where(id: user_id)
     user = user_records.present? ? user_records.first : nil
@@ -116,8 +112,6 @@ class TeamsController < ApplicationController
   end
 
   def deny_join_request
-    return redirect_to root_path if @team.captain.id != current_user.id
-
     user_id = params['user_id']
     user_records = User.where(id: user_id)
     user = user_records.present? ? user_records.first : nil
@@ -130,13 +124,10 @@ class TeamsController < ApplicationController
   end
 
   def details
-    return redirect_to root_path if current_user.team_id != @team.id
-
     @join_requests = Joinrequest.for_team(@team.id)
   end
 
   def dashboard
-    return redirect_to root_path if current_user.team_id != @team.id
     @join_requests = Joinrequest.for_team(@team.id)
 
     @show_join_requests =
@@ -189,8 +180,6 @@ class TeamsController < ApplicationController
 
   # DELETE /teams/1
   def destroy
-    return redirect_to root_path if @team.captain.id != current_user.id
-
     @team.joinrequests.destroy_all
     @team.users.update_all(team_id: nil)
     @team.destroy
@@ -218,19 +207,29 @@ class TeamsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_team
     @team = Team.find(params[:id])
     true
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def team_params
     params.require(:team).permit(:name, :team_captain_id)
   end
 
   def ensure_auth
-    redirect_to(root_path) && return unless current_user
+    return redirect_to(root_path) unless current_user
+    true
+  end
+
+  def ensure_captain
+    return redirect_to root_path unless current_user.id == @team.team_captain_id || current_user.is_admin
+    true
+  end
+
+  def ensure_team_member
+    return true if current_user.is_admin
+    return redirect_to root_path unless current_user.team.present?
+    return redirect_to root_path unless current_user.team.id == @team.id
     true
   end
 end

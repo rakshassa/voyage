@@ -1,5 +1,5 @@
 <div style="background: #4285F4;">
-  <h2 class="font-weight-bold text-center" style="color: white; padding: 10px;"><%= current_user.team.name %></h2>
+  <h2 class="font-weight-bold text-center" style="color: white; padding: 10px;"><%= @teamquest.team.name %></h2>
   <h4 class="font-weight-bold text-center" style="color: green; padding: 10px;"><%= @teamquest.quest.name %></h4>
 </div>
 
@@ -41,5 +41,5 @@
 </div>
 
 <div class="row mx-auto">
-    <%= link_to 'Dashboard', dashboard_team_path(current_user.team), :title => 'Dashboard', class: "btn btn-large btn-warning col-2" %>
+    <%= link_to 'Dashboard', dashboard_team_path(@teamquest.team), :title => 'Dashboard', class: "btn btn-large btn-warning col-2" %>
 </div>

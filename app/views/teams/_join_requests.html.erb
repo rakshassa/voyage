@@ -3,7 +3,7 @@
       <tr>
         <th scope="col">Join Requests</th>
         <th scope="col" colspan="2">
-          <% if @team.captain.id == current_user.id %>
+          <% if @team.captain.id == current_user.id || current_user.is_admin %>
             <% if @team.ignorejoins %>
               <%= link_to 'View', watch_joins_team_path(@team), method: :post, :title => 'View Join Requests ' + @team.name, class: 'btn btn-primary btn-sm' %>
             <% else %>
@@ -22,7 +22,7 @@
         <tr>
           <th scope="row"><%= join_request.user.display_name %>&nbsp&nbsp&nbsp&nbsp</th>
 
-          <% if @team.captain.id != current_user.id %>
+          <% if @team.captain.id != current_user.id || current_user.is_admin %>
             <td itemscope><%= ' ' %></td>
             <td itemscope><%= ' ' %></td>
           <% else %>
