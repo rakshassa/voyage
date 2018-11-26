@@ -7,7 +7,7 @@ class AwssamplersController < ApplicationController
   before_action :set_team, only: %i[create_keypair check_status delete_stack]
 
   def index
-    # TODO: add list_s3_buckets
+
   end
 
   def list_s3_buckets

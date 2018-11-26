@@ -120,7 +120,7 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
   - <done> api controller and routes
   - <done> test sample api method with python
   - implement "stack_complete" to update database with AWS data
-
+  - https://aws.amazon.com/blogs/mobile/invoking-aws-lambda-functions-via-amazon-sns/
 22. DevOps toolchain
   - Listen for github master-pull-requests
   - auto-update app server
@@ -134,10 +134,15 @@ https://www.lucidchart.com/documents/edit/9a1167b5-ab99-4bae-8180-263492652540/0
   - <done> get resulting URL
   - <done> SSH into the web server using keypair
   - <done> delete stack
-25. Practice creating cloud formation stack via lambda
-  - pass in parameter: team-id
-  - result: public dns of jumpbox
+25. <defer> Practice creating cloud formation stack via lambda
+  - <defer> pass in parameter: team-id
 26. <done> Create keypair and store to s3
   - <done> cope with existing keypair and existing s3 bucket
   - <done> signed_url to download keypair (with timeout)
 27. <done> Team Index (admin view) should have dashboard and manage links so admin can view team perspectives
+28. <done> Practice using CFT -> SNS -> Lambda -> API.stack_complete()
+  - <done> Create a lambda function that processes SNS events
+  - <done> forward stack completion events to API
+  - <done> Create SNS topic and subscribe the Lambda
+  - <done> Inform SNS when CFT events occur
+

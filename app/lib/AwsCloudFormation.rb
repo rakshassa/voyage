@@ -21,26 +21,35 @@ class AwsCloudFormation
     stack = Aws::CloudFormation::Stack.new(stack_name, @cf)
     return stack.name if stack.exists?
 
-    stack = @cf.create_stack({ stack_name: stack_name, template_url: template.public_url,
-      :parameters => [
-        {
-          parameter_key: "KeyName",
-          parameter_value: key_pair_name,
-          use_previous_value: false
-        },
-        {
-          parameter_key: "SSHLocation",
-          parameter_value: "0.0.0.0/0",
-          use_previous_value: false
-        },
-        {
-          parameter_key: "InstanceType",
-          parameter_value: 't2.small',
-          use_previous_value: false
-        }
-      ]
-    })
-    # NOTE: can use :notify => [ SNS_ARN ] in stacks.create
+    stack = @cf.create_stack(
+      { stack_name: stack_name, template_url: template.public_url,
+        :parameters => [
+          {
+            parameter_key: "KeyName",
+            parameter_value: key_pair_name,
+            use_previous_value: false
+          },
+          {
+            parameter_key: "SSHLocation",
+            parameter_value: "0.0.0.0/0",
+            use_previous_value: false
+          },
+          {
+            parameter_key: "InstanceType",
+            parameter_value: 't2.small',
+            use_previous_value: false
+          }
+        ],
+        :notification_arns => [ 'arn:aws:sns:us-west-2:952547111947:elis_example_topic' ]
+      }
+    )
+    # TODO: app config should house the notification_arn
+
+    # my lambda function ARN:
+    # arn:aws:lambda:us-west-2:952547111947:function:ElisTest
+
+    # SNS topic that forwards to lambda
+    # arn:aws:sns:us-west-2:952547111947:elis_example_topic
 
     return stack_name
   end

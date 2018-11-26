@@ -17,6 +17,8 @@ module Api
 
         stack_id = aws_values['stack_id']
 
+        # TODO: ask cloudformation for the stack outputs and store them in the database
+
         results = { 'error' => nil, 'stack_id': stack_id }
         respond_json(results)
       end
